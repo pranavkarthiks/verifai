@@ -1,0 +1,2818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VerifAI – AI Scam Awareness</title>
+  <script>
+    document.documentElement.classList.add("js");
+  </script>
+
+  <style>
+    :root {
+      --hero-logo-scale: 1.38;
+      --uob-logo-scale: 1.22;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      line-height: 1.5;
+      background: #000;
+      color: #f5f5f5;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 16px 48px;
+    }
+
+    .verifai-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #000;
+      border-bottom: 1px solid rgba(46, 242, 255, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    .verifai-nav {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .verifai-brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #2ef2ff;
+    }
+
+    .verifai-nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 16px;
+      font-size: 0.95rem;
+    }
+
+    .verifai-nav-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s ease, border-bottom-color 0.15s ease;
+    }
+
+    .verifai-nav-links a:hover {
+      color: #2ef2ff;
+      border-bottom-color: #2ef2ff;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin: 8px 0;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: #1b1b1b;
+      color: #f5f5f5;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.05s ease,
+        box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    button:hover:enabled {
+      background: #2a2a2a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      border-color: rgba(46, 242, 255, 0.35);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: #ff4b4b;
+      color: #000;
+      border-color: #ff4b4b;
+    }
+
+    .btn-primary:hover:enabled {
+      background: #ff6666;
+      border-color: #ff6666;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.75rem, 4vw, 2.15rem);
+      color: #2ef2ff;
+      line-height: 1.2;
+    }
+
+    h2.section-heading {
+      font-size: 1.5rem;
+      margin: 0 0 12px;
+      color: #ffffff;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8f9ba8;
+      margin-bottom: 4px;
+    }
+
+    .section-text {
+      margin: 0;
+      color: #c8d0d8;
+      font-size: 1rem;
+    }
+
+    /* Multi-paragraph copy: spacing + scan-friendly rhythm (Tailwind-like utility feel) */
+    .copy-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.05rem;
+      max-width: 42rem;
+      margin-top: 6px;
+    }
+
+    .copy-stack .section-text {
+      line-height: 1.68;
+      font-size: 1.02rem;
+      color: #d4dce6;
+    }
+
+    section:not(#stage2) .copy-stack.prose-readable {
+      border-left: 3px solid rgba(46, 242, 255, 0.22);
+      padding-left: 18px;
+      margin-left: 0;
+      border-radius: 0 8px 8px 0;
+      background: linear-gradient(
+        90deg,
+        rgba(46, 242, 255, 0.04) 0%,
+        transparent 70%
+      );
+    }
+
+    .copy-stack--tight {
+      gap: 0.85rem;
+    }
+
+    .section-heading {
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .section-heading::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 3rem;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #2ef2ff, rgba(46, 242, 255, 0.15));
+    }
+
+    .section-title {
+      margin-bottom: 6px;
+    }
+
+    .simulation-section .copy-stack .section-text:first-of-type::first-line,
+    #about .copy-stack .section-text:first-of-type::first-line {
+      font-weight: 600;
+      color: #eef3f8;
+    }
+
+    .stage3-voice .copy-stack .section-text {
+      font-size: 1.01rem;
+    }
+
+    .final-learning .copy-stack .section-text {
+      font-size: 1.03rem;
+    }
+
+    .portal-stage-inner .copy-stack .section-text {
+      font-size: 0.98rem;
+    }
+
+    .stage3-voice .stage3-audio-block + .copy-stack {
+      margin-top: 20px;
+    }
+
+    /* Subtle inline emphasis (use sparingly) */
+    .text-key {
+      font-weight: 600;
+      color: #e8f4ff;
+      text-shadow: 0 0 24px rgba(46, 242, 255, 0.18);
+    }
+
+    .portal-stage-inner .text-key {
+      color: #0d2844;
+      text-shadow: none;
+    }
+
+    .portal-stage-inner .text-ui {
+      color: #0a4a5c;
+      border-color: rgba(13, 90, 110, 0.35);
+      background: linear-gradient(
+        145deg,
+        rgba(46, 242, 255, 0.12) 0%,
+        rgba(46, 242, 255, 0.04) 100%
+      );
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Quoted UI / control labels — minimal “holographic” chip */
+    .text-ui {
+      display: inline-block;
+      font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
+      font-size: 0.86em;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #7fe8f5;
+      padding: 2px 9px 3px;
+      margin: 0 1px;
+      border-radius: 6px;
+      border: 1px solid rgba(46, 242, 255, 0.35);
+      background: linear-gradient(
+        145deg,
+        rgba(46, 242, 255, 0.1) 0%,
+        rgba(46, 242, 255, 0.03) 100%
+      );
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 2px 12px rgba(46, 242, 255, 0.08);
+      vertical-align: baseline;
+    }
+
+    /* Scroll-reveal: only when html.js (see init script). Safe for hidden-free sections. */
+    html.js .copy-stack.prose-animate:not(.is-visible) > p {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    html.js .copy-stack.prose-animate.is-visible > p {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(1) {
+      transition-delay: 0.04s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(2) {
+      transition-delay: 0.1s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(3) {
+      transition-delay: 0.16s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(4) {
+      transition-delay: 0.22s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(5) {
+      transition-delay: 0.28s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(6) {
+      transition-delay: 0.34s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(7) {
+      transition-delay: 0.4s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(8) {
+      transition-delay: 0.46s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(9) {
+      transition-delay: 0.52s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(10) {
+      transition-delay: 0.58s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(11) {
+      transition-delay: 0.64s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(12) {
+      transition-delay: 0.7s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(13) {
+      transition-delay: 0.76s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(14) {
+      transition-delay: 0.82s;
+    }
+    html.js .copy-stack.prose-animate.is-visible > p:nth-child(15) {
+      transition-delay: 0.88s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html.js .copy-stack.prose-animate:not(.is-visible) > p {
+        opacity: 1;
+        transform: none;
+      }
+      html.js .copy-stack.prose-animate.is-visible > p {
+        transition: none;
+      }
+    }
+
+    .portal-stage-outer .section-heading::after {
+      display: none;
+    }
+
+    .portal-stage-outer .section-heading {
+      padding-bottom: 0;
+    }
+
+    /* Hero / welcome */
+    .hero {
+      padding: 8px 0 16px;
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 28px;
+    }
+
+    @media (min-width: 560px) {
+      .hero-inner {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        justify-content: center;
+        gap: 36px;
+      }
+
+      .hero-copy {
+        flex: 1;
+        min-width: 0;
+        max-width: 420px;
+      }
+    }
+
+    .hero-logo-wrap {
+      flex-shrink: 0;
+    }
+
+    .hero-logo-frame {
+      width: 140px;
+      height: 140px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(46, 242, 255, 0.25);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 8px 32px rgba(46, 242, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .hero-logo-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      transform: scale(var(--hero-logo-scale));
+      transform-origin: center center;
+    }
+
+    .hero-tagline {
+      margin: 10px 0 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #e8eef4;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+      text-wrap: balance;
+    }
+
+    .warning {
+      background: rgba(255, 75, 75, 0.08);
+      padding: 12px;
+      border-left: 4px solid #2ef2ff;
+      margin-bottom: 16px;
+      border-radius: 6px;
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top: 4px solid #2ef2ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-top: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+      color: #2ef2ff;
+      font-weight: 600;
+    }
+
+    .recording {
+      margin-top: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .simulation-section .section-text + .warning {
+      margin-top: 20px;
+    }
+
+    /* Stage 1: email row */
+    .stage1-row {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .stage1-email-thumb {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed rgba(46, 242, 255, 0.35);
+    }
+
+    .stage1-msg-btn {
+      flex: 1;
+      min-width: 200px;
+      margin: 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Modal (email zoom + portal messages) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay[hidden] {
+      display: none !important;
+    }
+
+    .modal-panel {
+      position: relative;
+      max-width: min(640px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      background: #111;
+      border: 1px solid rgba(46, 242, 255, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      border-radius: 8px;
+      font-size: 1.5rem;
+      line-height: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-close:hover:enabled {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .modal-panel--email {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      max-width: min(560px, calc(100vw - 48px));
+      max-height: min(90vh, 90dvh);
+      min-height: 0;
+      flex-shrink: 1;
+      overflow: hidden;
+      background: #2d2d2d;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .email-modal-chrome {
+      position: relative;
+      flex-shrink: 0;
+      padding: 10px 48px 10px 14px;
+      background: #3a3a3a;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #b0b0b0;
+    }
+
+    .modal-panel--email .modal-close {
+      top: 6px;
+      right: 8px;
+      z-index: 2;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-panel--email .modal-close:hover:enabled {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .email-modal-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+      -webkit-overflow-scrolling: touch;
+      background: #ffffff;
+      color: #1a1a1a;
+      padding: 20px 24px 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      text-align: left;
+    }
+
+    .email-subject {
+      margin: 0 0 14px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.35;
+    }
+
+    .email-rule {
+      border: none;
+      height: 0;
+      margin: 0 0 14px;
+      border-top: 1px solid #c8c8c8;
+    }
+
+    .email-from {
+      margin: 0 0 18px;
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.45;
+    }
+
+    .email-body-text p {
+      margin: 0 0 14px;
+    }
+
+    .email-body-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .email-fake-url {
+      color: #1565c0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      word-break: break-all;
+      cursor: default;
+    }
+
+    .email-letterhead {
+      margin: 22px -24px 0;
+      padding: 14px 24px 18px;
+      background: #f7f8fa;
+      border-top: 1px solid #e2e4e8;
+    }
+
+    .email-letterhead-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 80px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .portal-stage-inner .section-text.portal-stage-intro {
+      margin: 0 0 16px;
+      color: #2a3a4a;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      max-width: 100%;
+    }
+
+    /* Stage 2: full-bleed white portal */
+    .portal-stage-outer {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: #ffffff;
+      color: #1a1a1a;
+      padding: 40px 24px 48px;
+      margin-top: 40px;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+    }
+
+    .portal-stage-outer .section-title {
+      color: #6a7a8a;
+    }
+
+    .portal-stage-outer .section-heading {
+      color: #0d1f33;
+    }
+
+    .portal-stage-inner {
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+      padding-top: 8px;
+    }
+
+    .portal-stage-inner > .section-title {
+      padding-right: 208px;
+      box-sizing: border-box;
+    }
+
+    .portal-uni-logo {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: auto;
+      width: auto;
+      max-width: 200px;
+      height: 56px;
+      padding: 0;
+      border-radius: 6px;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      overflow: visible;
+    }
+
+    .portal-uni-logo-img {
+      display: block;
+      max-height: 56px;
+      width: auto;
+      max-width: 200px;
+      height: auto;
+      object-fit: contain;
+      transform: scale(var(--uob-logo-scale));
+      transform-origin: right center;
+    }
+
+    #stage2-heading {
+      margin: 0 0 12px;
+      padding-right: 208px;
+      font-size: 1.35rem;
+      line-height: 1.3;
+      box-sizing: border-box;
+    }
+
+    .portal-portal-title {
+      margin: 0 0 16px;
+      font-size: 1.2rem;
+      color: #0d1f33;
+      font-weight: 700;
+    }
+
+    .portal-lead {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a2d44;
+    }
+
+    .portal-sub {
+      margin: 0 0 24px;
+      color: #3d4d5c;
+      font-size: 0.98rem;
+    }
+
+    .portal-form label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2a3a4a;
+      margin-bottom: 4px;
+      margin-top: 12px;
+    }
+
+    .portal-form label:first-of-type {
+      margin-top: 0;
+    }
+
+    .portal-form input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      font-size: 1rem;
+      border: 1px solid #c5ced6;
+      border-radius: 6px;
+      background: #fafbfc;
+      color: #1a1a1a;
+    }
+
+    .portal-form input:focus {
+      outline: 2px solid rgba(13, 80, 150, 0.35);
+      outline-offset: 1px;
+    }
+
+    .portal-continue {
+      margin-top: 20px;
+      width: 100%;
+      background: #0d47a1;
+      color: #fff;
+      border-color: #0d47a1;
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+
+    .portal-continue:hover:enabled {
+      background: #1565c0;
+      border-color: #1565c0;
+    }
+
+    .portal-loading-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 40px 16px 48px;
+      color: #0d1f33;
+    }
+
+    .portal-loading-block[hidden] {
+      display: none !important;
+    }
+
+    .portal-loading-block .spinner {
+      border-color: rgba(13, 31, 51, 0.15);
+      border-top-color: #0d47a1;
+      margin-top: 0;
+    }
+
+    .portal-loading-text {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .portal-intro-lines[hidden] {
+      display: none !important;
+    }
+
+    .portal-voice-msg {
+      padding: 18px 20px;
+      margin: 0 0 8px;
+      background: rgba(160, 45, 45, 0.14);
+      border: 1px solid rgba(180, 70, 70, 0.5);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(120, 30, 30, 0.12);
+    }
+
+    .portal-voice-msg[hidden] {
+      display: none !important;
+    }
+
+    .portal-voice-msg p {
+      margin: 0 0 14px;
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #7a2a2a;
+      letter-spacing: 0.01em;
+    }
+
+    .portal-voice-msg p:last-child {
+      margin-bottom: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #6b2525;
+    }
+
+    /* Call UI */
+    .call-ui-wrap {
+      margin-top: 28px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .call-ui-wrap[hidden] {
+      display: none !important;
+    }
+
+    .call-ui-card {
+      background: linear-gradient(180deg, #1a1f2e 0%, #0f1219 100%);
+      border: 1px solid rgba(46, 242, 255, 0.25);
+      border-radius: 20px;
+      padding: 28px 24px 24px;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+    }
+
+    .call-ui-card .call-status {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #8f9ba8;
+      margin: 0 0 8px;
+    }
+
+    .call-ui-card .call-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f5f5f5;
+      margin: 0 0 24px;
+      line-height: 1.35;
+    }
+
+    .call-ui-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .call-btn {
+      flex: 1;
+      min-width: 120px;
+      margin: 0;
+      border-radius: 999px;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .call-btn.accept {
+      background: #2ecc71;
+      color: #000;
+      border-color: #2ecc71;
+      opacity: 1;
+    }
+
+    .call-btn.decline {
+      background: #e74c3c;
+      color: #fff;
+      border-color: #e74c3c;
+      opacity: 1;
+    }
+
+    .call-btn:disabled {
+      opacity: 1;
+      cursor: default;
+    }
+
+    .stage3-voice .section-heading {
+      color: #ffffff;
+    }
+
+    .stage3-audio-block {
+      margin: 20px 0 8px;
+    }
+
+    .stage3-audio-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 6px;
+      scrollbar-color: rgba(46, 242, 255, 0.55) rgba(255, 255, 255, 0.08);
+      scrollbar-width: thin;
+    }
+
+    .stage3-audio-row::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .stage3-audio-row::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+    }
+
+    .stage3-audio-row::-webkit-scrollbar-thumb {
+      background: rgba(46, 242, 255, 0.45);
+      border-radius: 999px;
+    }
+
+    .stage3-audio-row::-webkit-scrollbar-thumb:hover {
+      background: rgba(46, 242, 255, 0.65);
+    }
+
+    .stage3-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      flex-shrink: 0;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      background: rgba(46, 242, 255, 0.1);
+      border: 1px solid rgba(46, 242, 255, 0.45);
+      color: #2ef2ff;
+      padding: 12px 22px;
+      border-radius: 999px;
+    }
+
+    .stage3-play-btn:hover:enabled {
+      background: rgba(46, 242, 255, 0.18);
+      border-color: #2ef2ff;
+    }
+
+    .stage3-play-icon {
+      font-size: 0.85rem;
+      line-height: 1;
+    }
+
+    .stage3-scroll-wrap {
+      flex: 1;
+      min-width: 140px;
+      padding: 4px 0;
+    }
+
+    .stage3-seek {
+      width: 100%;
+      height: 12px;
+      margin: 0;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+    }
+
+    .stage3-seek::-webkit-slider-runnable-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .stage3-seek::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 22px;
+      margin-top: -7px;
+      border-radius: 4px;
+      background: rgba(46, 242, 255, 0.85);
+      border: 1px solid rgba(46, 242, 255, 1);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .stage3-seek::-moz-range-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .stage3-seek::-moz-range-thumb {
+      width: 14px;
+      height: 22px;
+      border-radius: 4px;
+      background: rgba(46, 242, 255, 0.85);
+      border: 1px solid rgba(46, 242, 255, 1);
+    }
+
+    .stage3-intro-audio {
+      display: none;
+    }
+
+    .stage3-info-paragraph {
+      margin: 0;
+      color: #c8d0d8;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .stage3-voice > .warning {
+      margin-top: 12px;
+    }
+
+    .stage3-agent-block {
+      margin-top: 20px;
+    }
+
+    /* Stage 4 — AI voice clone reveal */
+    .stage4-reveal {
+      margin-top: 48px;
+    }
+
+    .stage4-reveal .section-heading {
+      margin-bottom: 16px;
+    }
+
+    .stage4-dark-panel {
+      background: #070708;
+      border: 1px solid rgba(46, 242, 255, 0.2);
+      border-radius: 14px;
+      padding: 28px 20px 32px;
+      min-height: 220px;
+      position: relative;
+    }
+
+    .stage4-processing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      min-height: 200px;
+      color: #2ef2ff;
+      font-weight: 600;
+    }
+
+    .stage4-processing-label {
+      margin: 0;
+    }
+
+    .stage4-processing[hidden] {
+      display: none !important;
+    }
+
+    .stage4-model-created {
+      text-align: center;
+      padding: 20px 18px;
+      margin-bottom: 20px;
+      background: rgba(46, 242, 255, 0.08);
+      border: 1px solid rgba(46, 242, 255, 0.35);
+      border-radius: 10px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2ef2ff;
+      letter-spacing: 0.04em;
+    }
+
+    .stage4-model-created[hidden] {
+      display: none !important;
+    }
+
+    #scamResult {
+      margin-top: 8px;
+    }
+
+    #scamResult h3 {
+      color: #2ef2ff;
+      margin-top: 0;
+    }
+
+    #scamResult .scam-generation-error {
+      margin: 12px 0 0;
+      color: #ffb3b3;
+      line-height: 1.5;
+      max-width: 36rem;
+    }
+
+    .stage4-footer-copy {
+      margin-top: 28px;
+      padding-top: 8px;
+    }
+
+    .stage4-footer-copy[hidden] {
+      display: none !important;
+    }
+
+    .stage4-subheading {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e0e8f0;
+      margin: 0 0 10px;
+      line-height: 1.4;
+    }
+
+    .stage4-footer-copy .section-text {
+      margin: 0;
+    }
+
+    /* Stage 5 — parent phone UI */
+    .stage5-parent {
+      margin-top: 48px;
+    }
+
+    .phone-frame {
+      max-width: 320px;
+      margin: 24px auto 0;
+      padding: 14px;
+      background: linear-gradient(160deg, #3a3d44 0%, #1e1f24 45%, #121316 100%);
+      border-radius: 40px;
+      box-shadow:
+        0 24px 48px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .phone-screen {
+      background: linear-gradient(180deg, #12141a 0%, #0a0b0e 100%);
+      border-radius: 28px;
+      padding: 28px 18px 32px;
+      min-height: 380px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .stage5-incoming-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(46, 242, 255, 0.2);
+      border-radius: 16px;
+      min-height: 220px;
+    }
+
+    .stage5-incoming-text {
+      margin: 0 0 20px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #e8eef4;
+      letter-spacing: 0.04em;
+    }
+
+    .stage5-ring-icon {
+      width: 72px;
+      height: 72px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      line-height: 1;
+      animation: stage5-ring-pulse 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(46, 242, 255, 0.35));
+    }
+
+    @keyframes stage5-ring-pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.85;
+      }
+    }
+
+    .stage5-phone-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+
+    .stage5-decline-btn {
+      flex: 1;
+      min-width: 110px;
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      background: #c0392b;
+      color: #fff;
+      border-color: #c0392b;
+      border-radius: 999px;
+    }
+
+    .stage5-decline-btn:hover:enabled {
+      background: #e74c3c;
+      border-color: #e74c3c;
+    }
+
+    .stage5-accept-btn {
+      flex: 1;
+      min-width: 110px;
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      background: #27ae60;
+      color: #fff;
+      border-color: #27ae60;
+      border-radius: 999px;
+    }
+
+    .stage5-accept-btn:hover:enabled {
+      background: #2ecc71;
+      border-color: #2ecc71;
+    }
+
+    .stage5-play-wrap {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .stage5-play-wrap[hidden] {
+      display: none !important;
+    }
+
+    .stage5-play-call-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      background: rgba(46, 242, 255, 0.12);
+      border: 1px solid rgba(46, 242, 255, 0.45);
+      color: #2ef2ff;
+      padding: 12px 24px;
+      border-radius: 999px;
+    }
+
+    .stage5-play-call-btn:hover:enabled {
+      background: rgba(46, 242, 255, 0.2);
+    }
+
+    .stage5-play-call-icon {
+      font-size: 0.9rem;
+    }
+
+    .stage5-play-status {
+      margin: 12px 0 0;
+      font-size: 0.95rem;
+      color: #8f9ba8;
+      min-height: 1.4em;
+    }
+
+    .stage5-audio-el {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .stage5-after-phone {
+      margin-top: 24px;
+      max-width: 560px;
+    }
+
+    /* Stage 6 — payment decision phone */
+    .stage6-payment {
+      margin-top: 48px;
+    }
+
+    .stage6-phone-screen {
+      position: relative;
+      min-height: 420px;
+    }
+
+    .stage6-home {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .stage6-notif-btn,
+    .stage6-payment-btn {
+      width: 100%;
+      margin: 0;
+      text-align: left;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(46, 242, 255, 0.1);
+      border: 1px solid rgba(46, 242, 255, 0.35);
+      color: #2ef2ff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .stage6-notif-btn:hover:enabled,
+    .stage6-payment-btn:hover:enabled {
+      background: rgba(46, 242, 255, 0.18);
+    }
+
+    .stage6-payment-btn {
+      background: rgba(255, 180, 80, 0.12);
+      border-color: rgba(255, 180, 80, 0.45);
+      color: #ffc266;
+    }
+
+    .stage6-payment-btn:hover:enabled {
+      background: rgba(255, 180, 80, 0.2);
+    }
+
+    .stage6-in-phone-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border-radius: 24px;
+    }
+
+    .stage6-in-phone-overlay[hidden] {
+      display: none !important;
+    }
+
+    .stage6-sms-panel {
+      position: relative;
+      width: 100%;
+      max-height: 100%;
+      overflow: auto;
+      background: #e8ecf0;
+      color: #1a1a1a;
+      border-radius: 14px;
+      padding: 16px 14px 14px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    .stage6-sms-sender {
+      margin: 0 0 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0d47a1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stage6-sms-body {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .stage6-fake-link {
+      color: #1565c0;
+      text-decoration: underline;
+      word-break: break-all;
+      cursor: default;
+    }
+
+    .stage6-intro {
+      margin-bottom: 20px;
+      max-width: 560px;
+    }
+
+    .stage6-bank-panel {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(180deg, #1c2333 0%, #12161f 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 20px 16px 24px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .stage6-bank-title {
+      margin: 0 0 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #b8c4d4;
+      letter-spacing: 0.02em;
+    }
+
+    .stage6-bank-amount {
+      margin: 0 0 12px;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f5f5f5;
+      letter-spacing: 0.02em;
+    }
+
+    .stage6-bank-sender {
+      margin: 0 0 24px;
+      font-size: 0.82rem;
+      color: #8f9ba8;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .stage6-bank-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stage6-bank-approve {
+      margin: 0;
+      min-width: 120px;
+      text-transform: none;
+      background: #27ae60;
+      color: #fff;
+      border-color: #27ae60;
+      border-radius: 10px;
+    }
+
+    .stage6-bank-deny {
+      margin: 0;
+      min-width: 120px;
+      text-transform: none;
+      background: #c0392b;
+      color: #fff;
+      border-color: #c0392b;
+      border-radius: 10px;
+    }
+
+    .stage6-overlay-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+      margin: 0;
+      padding: 0;
+      border-radius: 8px;
+      font-size: 1.35rem;
+      line-height: 1;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .stage6-sms-panel .stage6-overlay-close {
+      color: #333;
+      background: rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    /* Stage 7 — outcomes */
+    .stage7-outcomes {
+      margin-top: 48px;
+    }
+
+    .stage7-intro {
+      margin-bottom: 20px;
+      max-width: 560px;
+    }
+
+    .stage7-phone-screen {
+      position: relative;
+      min-height: 420px;
+    }
+
+    .stage7-home {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .stage7-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(46, 242, 255, 0.22);
+      background: rgba(18, 22, 30, 0.95);
+      color: #e8eef5;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .stage7-action-btn:hover {
+      background: rgba(46, 242, 255, 0.1);
+      border-color: rgba(46, 242, 255, 0.45);
+    }
+
+    .stage7-action-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stage7-action-icon svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    .stage7-in-phone-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .stage7-in-phone-overlay[hidden] {
+      display: none !important;
+    }
+
+    .stage7-outcome-panel {
+      position: relative;
+      width: 100%;
+      max-height: 100%;
+      overflow: auto;
+      background: linear-gradient(180deg, #1a1d26 0%, #12141c 100%);
+      border: 1px solid rgba(46, 242, 255, 0.28);
+      border-radius: 14px;
+      padding: 36px 14px 16px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    .stage7-outcome-panel .stage6-overlay-close {
+      top: 6px;
+      right: 6px;
+      color: #e8eef5;
+      background: rgba(0, 0, 0, 0.25);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .stage7-outcome-title {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #2ef2ff;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .stage7-outcome-title--long {
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .stage7-outcome-body {
+      margin: 0;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: #c8d4e0;
+      text-align: left;
+    }
+
+    .stage7-outcome-body p {
+      margin: 0 0 12px;
+    }
+
+    .stage7-outcome-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    #stage7-title-callback .stage7-outcome-title {
+      margin: 0 0 5px;
+    }
+
+    #stage7-title-callback .stage7-outcome-title:last-of-type {
+      margin-bottom: 12px;
+    }
+
+    .stage7-hl-1 {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      background: rgba(127, 216, 255, 0.22);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .stage7-hl-2 {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      background: rgba(255, 184, 112, 0.22);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .stage7-hl-3 {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      background: rgba(201, 160, 255, 0.22);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .stage7-hl-4 {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      background: rgba(124, 255, 178, 0.18);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .stage7-hl-5 {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      background: rgba(255, 158, 205, 0.2);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .stage7-hl-6 {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      background: rgba(255, 224, 102, 0.2);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .stage7-hl-7 {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      background: rgba(137, 212, 255, 0.2);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Final learning */
+    .final-learning {
+      margin-top: 56px;
+      padding-bottom: 48px;
+      border-top: 1px solid rgba(46, 242, 255, 0.15);
+      padding-top: 40px;
+    }
+
+    .final-learning-heading {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #e8eef5;
+      margin: 0 0 16px;
+    }
+
+    .final-learning-intro {
+      margin: 0;
+      max-width: 640px;
+      line-height: 1.55;
+    }
+
+    .final-learning .copy-stack {
+      margin-bottom: 28px;
+    }
+
+    .final-learning-sub {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #2ef2ff;
+      margin: 24px 0 12px;
+    }
+
+    .final-learning-sub:first-of-type {
+      margin-top: 0;
+    }
+
+    .final-learning-list {
+      margin: 0;
+      padding-left: 0;
+      max-width: 42rem;
+      list-style-position: outside;
+      padding-left: 1.25rem;
+    }
+
+    .final-learning-list li {
+      margin-bottom: 12px;
+      line-height: 1.58;
+      padding-left: 6px;
+      border-left: 2px solid rgba(46, 242, 255, 0.28);
+      margin-left: 2px;
+    }
+
+    .final-learning-list li::marker {
+      color: #2ef2ff;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body id="top">
+
+<header class="verifai-header">
+  <nav class="verifai-nav">
+    <div class="verifai-brand">VerifAI</div>
+    <div class="verifai-nav-links">
+      <a href="#welcome">Home</a>
+      <a href="#about">About us</a>
+      <a href="#what-is-this">What is this?</a>
+      <button class="btn-primary" type="button" onclick="document.getElementById('stage1').scrollIntoView({ behavior: 'smooth' });">
+        Start demo
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+  <section id="welcome" class="section hero" aria-labelledby="welcome-heading">
+    <div class="hero-inner">
+      <div class="hero-logo-wrap">
+        <div class="hero-logo-frame">
+          <img
+            class="hero-logo-img"
+            src="images/verifai-logo.png"
+            width="140"
+            height="140"
+            alt="VerifAI"
+          >
+        </div>
+      </div>
+      <div class="hero-copy">
+        <h1 id="welcome-heading">Welcome to VerifAI</h1>
+        <p class="hero-tagline">See a Scam First, Stop a Scam Next</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section" aria-labelledby="about-heading">
+    <p class="section-title">Who we are</p>
+    <h2 id="about-heading" class="section-heading">About Us</h2>
+    <div class="copy-stack prose-readable prose-animate">
+      <p class="section-text">
+        VerifAI is an interactive online experience centre designed to help people understand and navigate the growing world of <span class="text-key">AI-generated scams</span>. As artificial intelligence becomes more powerful and accessible, scams are no longer limited to suspicious emails or poorly written messages. Today, they can sound human, look official, and feel urgent. VerifAI exists to bridge the gap between awareness and real-world preparedness.
+      </p>
+      <p class="section-text">
+        Our mission is simple: help people build practical <span class="text-key">digital literacy</span> by experiencing scams in a safe and controlled environment. Instead of reading about risks, visitors move through realistic scenarios that mirror how modern scams unfold in everyday life — from a single phishing email to voice cloning and financial fraud. Each stage encourages users to observe, question, and reflect on their own instincts and decisions.
+      </p>
+      <p class="section-text">
+        The experience is grounded in <span class="text-key">inoculation theory</span>, a psychological approach that strengthens resistance to misinformation by exposing people to weakened versions of deceptive techniques before they encounter them in real situations. By interacting with simulations, users begin to recognise patterns, pressure tactics, and emotional triggers that scammers rely on.
+      </p>
+      <p class="section-text">
+        VerifAI is not about testing people or catching them out. It is about helping them understand how easily <span class="text-key">trust</span> can be manipulated in digital environments, and how awareness, reflection, and small behavioural changes can make a significant difference.
+      </p>
+      <p class="section-text">
+        By the end of the experience, users leave not with a list of rules, but with their own <span class="text-key">mental models</span> for questioning suspicious interactions and protecting themselves and the people around them.
+      </p>
+    </div>
+  </section>
+
+  <section id="what-is-this" class="section" aria-labelledby="what-heading">
+    <p class="section-title">Context</p>
+    <h2 id="what-heading" class="section-heading">What is this?</h2>
+    <div class="copy-stack prose-readable prose-animate">
+      <p class="section-text">
+        This is a guided simulation of a modern <span class="text-key">AI-powered</span> scam.
+      </p>
+      <p class="section-text">
+        You are about to move through a short digital story that mirrors how real scams unfold: step by step, from a simple message to a high-pressure financial decision. Nothing here is real, but everything is based on real-world tactics currently being used by scammers.
+      </p>
+      <p class="section-text">
+        Rather than telling you what to look out for, this experience lets you explore, interact, and form your own understanding of how these scams operate.
+      </p>
+      <p class="section-text">
+        Take your time, stay curious, and notice how each step makes you feel and what you instinctively trust or question.
+      </p>
+    </div>
+  </section>
+
+  <section id="simulation-intro" class="section simulation-section" aria-labelledby="sim-heading">
+    <p class="section-title">Simulation</p>
+    <h2 id="sim-heading" class="section-heading">AI Voice Cloning Scam Simulation</h2>
+    <div class="copy-stack prose-readable prose-animate">
+      <p class="section-text">
+        This interactive demo introduces one of the fastest-growing threats in digital fraud: <span class="text-key">AI-generated voices</span>.
+      </p>
+      <p class="section-text">
+        You will hear examples of synthetic voices that sound natural, emotional, and convincing. These voices are generated by artificial intelligence and can mimic real people with only a short audio sample.
+      </p>
+      <p class="section-text">
+        The goal is not to trick you, but to help you experience how believable these voices can be and to start thinking about what makes a voice sound <span class="text-key">trustworthy</span>.
+      </p>
+      <p class="section-text">
+        As you listen, ask yourself: Would I question this if I heard it in real life?
+      </p>
+    </div>
+  </section>
+
+  <section id="stage1" class="section" aria-labelledby="stage1-heading">
+    <p class="section-title">Stage 1</p>
+    <h2 id="stage1-heading" class="section-heading">Stage 1: University Phishing Email (Entry Point)</h2>
+    <div class="copy-stack prose-readable prose-animate">
+      <p class="section-text">
+        Most scams do not begin with dramatic threats or urgent calls.
+      </p>
+      <p class="section-text">
+        They start quietly — with a simple, <span class="text-key">believable</span> message.
+      </p>
+      <p class="section-text">
+        A university notification, a service alert, or a routine update is often enough to open the door. The message below simulates how easily everyday communication channels can be used to initiate a scam.
+      </p>
+      <p class="section-text">
+        Click the notification to inspect the email and see what draws your attention.
+      </p>
+    </div>
+    <div class="stage1-row">
+      <!-- Replace src with your email emoji / icon asset -->
+      <img
+        id="stage1-email-thumb"
+        class="stage1-email-thumb"
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Crect fill='%23222' width='88' height='88' rx='12'/%3E%3Ctext x='44' y='54' font-size='36' text-anchor='middle' fill='%232ef2ff'%3E✉%3C/text%3E%3C/svg%3E"
+        width="44"
+        height="44"
+        alt=""
+      >
+      <button type="button" class="stage1-msg-btn" id="open-fake-email-btn" aria-haspopup="dialog">
+        You have (1) new message
+      </button>
+    </div>
+  </section>
+
+  <section id="stage2" class="section" aria-labelledby="stage2-heading">
+    <div class="portal-stage-outer">
+      <div class="portal-stage-inner">
+        <p class="section-title">Stage 2</p>
+        <h2 id="stage2-heading" class="section-heading">Stage 2: Fake University Portal</h2>
+        <div class="copy-stack copy-stack--tight prose-animate">
+          <p class="section-text portal-stage-intro">
+            Scams often move from messages to familiar-looking platforms.
+          </p>
+          <p class="section-text portal-stage-intro">
+            This portal represents how attackers recreate <span class="text-key">trusted environments</span> to make requests feel routine and legitimate. The layout, branding, and structure are designed to reduce suspicion and encourage quick action.
+          </p>
+          <p class="section-text portal-stage-intro">
+            Interact with the portal and explore it as you normally would.
+          </p>
+          <p class="section-text portal-stage-intro">
+            Notice what feels convincing, what feels slightly off, and how comfortable you feel entering information here.
+          </p>
+          <p class="section-text portal-stage-intro">
+            (Do not submit any real details — this is only part of the simulation.)
+          </p>
+        </div>
+
+        <div class="portal-uni-logo">
+          <img
+            class="portal-uni-logo-img"
+            src="images/uob-logo.png"
+            width="200"
+            height="56"
+            alt="University of Bristol"
+          >
+        </div>
+
+        <h2 class="portal-portal-title">University of Bristol Student Finance Portal</h2>
+        <div id="portal-intro-lines" class="portal-intro-lines">
+          <p class="portal-lead">Welcome to Student Finance Verification</p>
+          <p class="portal-sub">Please confirm your details for security purposes.</p>
+        </div>
+
+        <form class="portal-form" id="portal-form" autocomplete="off" onsubmit="return false;">
+          <label for="pf-name">Full Name</label>
+          <input id="pf-name" name="fullName" type="text" placeholder="e.g. Jane Smith">
+
+          <label for="pf-id">Student ID</label>
+          <input id="pf-id" name="studentId" type="text" placeholder="e.g. AB123456">
+
+          <label for="pf-phone">Phone Number</label>
+          <input id="pf-phone" name="phone" type="tel" placeholder="e.g. 07xxx xxxxxx">
+
+          <label for="pf-email">Email</label>
+          <input id="pf-email" name="email" type="email" placeholder="e.g. you@bristol.ac.uk">
+
+          <label for="pf-course">Course</label>
+          <input id="pf-course" name="course" type="text" placeholder="e.g. Computer Science">
+
+          <button type="button" class="portal-continue" id="portal-continue-btn">Continue Verification</button>
+        </form>
+
+        <div id="portal-loading" class="portal-loading-block" hidden>
+          <div class="spinner" aria-hidden="true"></div>
+          <p class="portal-loading-text">Verifying your details…</p>
+        </div>
+
+        <div id="portal-voice-msg" class="portal-voice-msg" hidden>
+          <p>Your account requires voice verification for security purposes.</p>
+          <p>A university representative will call you shortly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="call-ui-wrap" id="call-ui-wrap" hidden>
+      <div class="call-ui-card" role="img" aria-label="Simulated incoming call screen">
+        <p class="call-status">Incoming call</p>
+        <p class="call-title">Incoming Call — University of Bristol Finance Verification</p>
+        <div class="call-ui-actions">
+          <button type="button" class="call-btn accept" disabled aria-disabled="true">Accept</button>
+          <button type="button" class="call-btn decline" disabled aria-disabled="true">Decline</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="section stage3-voice" aria-labelledby="stage3-heading">
+    <p class="section-title">Stage 3</p>
+    <h2 id="stage3-heading" class="section-heading">Stage 3: Verification Call (Voice Capture)</h2>
+    <div class="copy-stack prose-readable prose-animate">
+      <p class="section-text">
+        After interacting with a portal like this, the next step could be a <span class="text-key">verification call</span>.
+      </p>
+      <p class="section-text">
+        On the surface, it sounds helpful and routine — a quick call to confirm details and resolve the issue. In reality, this is often where scammers build trust and reinforce their story.
+      </p>
+      <p class="section-text">
+        Click <span class="text-ui">Play Fake Call</span> to hear the recording.
+      </p>
+      <p class="section-text">
+        This voice is <span class="text-key">AI-generated</span> and does not belong to a real person. As you listen, think about what makes it sound believable and what might raise suspicion.
+      </p>
+      <p class="section-text">
+        Does it sound human? Would you question it in the moment? What signals would help you recognise something like this in the future?
+      </p>
+    </div>
+    <!-- Add your MP3 next to index.html: audio/stage3-intro.mp3 -->
+    <div class="stage3-audio-block">
+      <audio id="stage3-intro-audio" class="stage3-intro-audio" src="audio/stage3-intro.mp3" preload="metadata"></audio>
+      <div class="stage3-audio-row">
+        <button type="button" class="stage3-play-btn" id="stage3-play-btn" aria-label="Play fake call audio">
+          <span class="stage3-play-icon" id="stage3-play-icon" aria-hidden="true">▶</span>
+          <span id="stage3-play-label">Play fake call</span>
+        </button>
+        <div class="stage3-scroll-wrap">
+          <input type="range" class="stage3-seek" id="stage3-seek" min="0" max="100" value="0" step="any" aria-label="Playback position">
+        </div>
+      </div>
+    </div>
+
+    <div class="copy-stack prose-readable prose-animate">
+      <p class="section-text stage3-info-paragraph">
+        You are about to simulate the moment where a scammer captures a <span class="text-key">voice sample</span>. This helps you understand how easily voice data can be collected and reused. We do not store any of your voice data.
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        Please read the Information cell below and tick the consent box to continue.
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        If you are participating at one of our live exhibitions, a member of the VerifAI team may act as the caller and speak with you in real time to create a realistic interaction. You can respond naturally, just like a normal phone call.
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        If you are doing this online, you can click <span class="text-ui">Simulate AI Agent Call</span> to play an automated scam call. This represents IVR-style scam systems, where automated voices ask questions and collect responses. These calls can be more dangerous because they feel official and structured, and people often answer without questioning them.
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        To begin the interaction:
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        1. Click <span class="text-ui">Simulate AI Agent Call</span> and let the audio play
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        2. Click <span class="text-ui">Start Recording</span> and respond to the call naturally
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        3. Speak clearly and answer during the pauses in the recording
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        4. Continue speaking for at least one minute for an accurate voice sample
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        5. Click <span class="text-ui">Stop Recording</span> when the call ends
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        You may also speak freely into the microphone without using the call recording if you prefer.
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        Make sure your recording is minimum 1 minute and maximum 2 minutes long.
+      </p>
+      <p class="section-text stage3-info-paragraph">
+        It may feel awkward at first, but try to treat this like a real call — that is exactly how voice samples are captured in real scams.
+      </p>
+    </div>
+    <div class="warning">
+      <strong>Important:</strong> This experience demonstrates how AI voice scams work.
+      Your voice is used only for this session and not stored permanently.
+    </div>
+
+    <label>
+      <input type="checkbox" id="consent">
+      I understand and consent to my voice being recorded.
+    </label>
+
+    <!-- Add your MP3 next to index.html: audio/simulate-agent-call.mp3 -->
+    <div class="stage3-audio-block stage3-agent-block">
+      <audio id="stage3-agent-audio" class="stage3-intro-audio" src="audio/simulate-agent-call.mp3" preload="metadata"></audio>
+      <div class="stage3-audio-row">
+        <button type="button" class="stage3-play-btn" id="stage3-agent-play-btn" aria-label="Simulate AI agent call audio">
+          <span class="stage3-play-icon" id="stage3-agent-play-icon" aria-hidden="true">▶</span>
+          <span id="stage3-agent-play-label">Simulate AI Agent Call</span>
+        </button>
+        <div class="stage3-scroll-wrap">
+          <input type="range" class="stage3-seek" id="stage3-agent-seek" min="0" max="100" value="0" step="any" aria-label="Agent call playback position">
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <button id="startBtn" disabled>Start Recording</button>
+    <button id="stopBtn" disabled>Stop Recording</button>
+
+    <p id="status"></p>
+
+    <div id="recordings-container"></div>
+  </section>
+
+  <section id="stage4" class="section stage4-reveal" hidden aria-labelledby="stage4-heading">
+    <p class="section-title">Stage 4</p>
+    <h2 id="stage4-heading" class="section-heading">Stage 4 — AI Voice Clone Reveal</h2>
+
+    <div class="stage4-dark-panel">
+      <div id="stage4-processing" class="stage4-processing" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="stage4-processing-label">Processing Voice Sample…</p>
+      </div>
+
+      <div id="stage4-model-created" class="stage4-model-created" hidden>
+        AI Voice Model Created
+      </div>
+
+      <div id="scamResult"></div>
+    </div>
+
+    <div id="stage4-footer-copy" class="stage4-footer-copy" hidden>
+      <h3 class="stage4-subheading">This is an AI-generated voice clone created using your recorded audio.</h3>
+      <div class="copy-stack prose-readable">
+        <p class="section-text">
+          With enough audio data, modern AI systems can replicate tone, rhythm, and speech patterns within <span class="text-key">minutes</span>. The version you hear here may not sound perfect, but the technology is improving rapidly and is already being used in real-world scams.
+        </p>
+        <p class="section-text">
+          Think about what identity means in a world where voices can be copied.
+        </p>
+        <p class="section-text">
+          If someone sounds like you, how would others know it is really you?
+        </p>
+        <p class="section-text">
+          You can press <span class="text-ui">Try Again</span> to regenerate the clone or <span class="text-ui">Sample Voice Again</span> to submit a new recording.
+        </p>
+        <p class="section-text">
+          Our model is limited, but imagine this process in the hands of someone with far more powerful computing capabilities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="stage5" class="section stage5-parent" hidden aria-labelledby="stage5-heading">
+    <p class="section-title">Stage 5</p>
+    <h2 id="stage5-heading" class="section-heading">Stage 5 — Parents Receive Call</h2>
+
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="stage5-incoming-card">
+          <p class="stage5-incoming-text">Incoming call...</p>
+          <div class="stage5-ring-icon" aria-hidden="true" title="">📞</div>
+          <div class="stage5-phone-actions">
+            <button type="button" class="stage5-accept-btn" id="stage5-accept">Accept</button>
+            <button type="button" class="stage5-decline-btn" id="stage5-decline">Decline</button>
+          </div>
+        </div>
+
+        <div id="stage5-play-wrap" class="stage5-play-wrap" hidden>
+          <button type="button" class="stage5-play-call-btn" id="stage5-play-call">
+            <span class="stage5-play-call-icon" aria-hidden="true">▶</span>
+            Play Call
+          </button>
+          <p id="stage5-play-status" class="stage5-play-status"></p>
+          <audio id="stage5-audio" class="stage5-audio-el" preload="none" controls></audio>
+        </div>
+      </div>
+    </div>
+
+    <div class="copy-stack prose-readable">
+      <p class="section-text stage5-after-phone">
+        This is where the scam moves beyond technology and into <span class="text-key">relationships</span>.
+      </p>
+      <p class="section-text stage5-after-phone">
+        A familiar voice asking for urgent help can override hesitation, especially when it comes from someone you trust. Parents, family members, or friends may act quickly because the situation feels emotional and time-sensitive.
+      </p>
+      <p class="section-text stage5-after-phone">
+        Notice how the request avoids long conversations and pushes the action toward a <span class="text-key">payment link</span> instead.
+      </p>
+      <p class="section-text stage5-after-phone">
+        The pressure is subtle, but the urgency is real.
+      </p>
+      <p class="section-text stage5-after-phone">
+        Think about how you or your family would react in this moment.
+      </p>
+    </div>
+  </section>
+
+  <section id="stage6" class="section stage6-payment" hidden aria-labelledby="stage6-heading">
+    <p class="section-title">Stage 6</p>
+    <h2 id="stage6-heading" class="section-heading">Stage 6 — Payment Decision</h2>
+    <div class="copy-stack prose-readable">
+      <p class="section-text stage6-intro">
+        Losses often crystallise inside interfaces people already <span class="text-key">trust</span> — a message thread, a banking screen, or a secure-looking link.
+      </p>
+      <p class="section-text stage6-intro">
+        The phone above represents the final step where decisions happen quickly and quietly.
+      </p>
+      <p class="section-text stage6-intro">
+        Reading a message and approving a transfer can feel like a routine action, especially when the request comes from someone familiar.
+      </p>
+      <p class="section-text stage6-intro">
+        Explore the phone as you would a real device and notice how little friction exists between receiving a message and <span class="text-key">authorising a payment</span>.
+      </p>
+    </div>
+    <div class="phone-frame">
+      <div class="phone-screen stage6-phone-screen">
+        <div class="stage6-home">
+          <button type="button" class="stage6-notif-btn" id="stage6-open-sms" aria-haspopup="dialog">
+            You have (1) new message
+          </button>
+          <button type="button" class="stage6-payment-btn" id="stage6-open-bank" hidden aria-haspopup="dialog">
+            Payment Request
+          </button>
+        </div>
+
+        <div id="stage6-sms-overlay" class="stage6-in-phone-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="stage6-sms-sender">
+          <div class="stage6-sms-panel" id="stage6-sms-panel">
+            <button type="button" class="stage6-overlay-close" id="stage6-sms-close" aria-label="Close message">×</button>
+            <p class="stage6-sms-sender" id="stage6-sms-sender">University of Bristol</p>
+            <div class="stage6-sms-body">University Finance Office: Your child's tuition payment of £2,000 is currently outstanding due to a processing issue.
+
+To prevent deregistration and late penalties, please complete payment within 24 hours via the secure portal:
+<span class="stage6-fake-link">https://uni-secure-payments.co.uk/tuition</span>
+
+Ref: STU-20491</div>
+          </div>
+        </div>
+
+        <div id="stage6-bank-overlay" class="stage6-in-phone-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="stage6-bank-title-text">
+          <div class="stage6-bank-panel" id="stage6-bank-panel">
+            <button type="button" class="stage6-overlay-close" id="stage6-bank-close" aria-label="Close">×</button>
+            <p class="stage6-bank-title" id="stage6-bank-title-text">Requesting Approval for Payment</p>
+            <p class="stage6-bank-amount">£2,000</p>
+            <p class="stage6-bank-sender">ZETTLE/SQUARE LTD YB4XC7SH5</p>
+            <div class="stage6-bank-actions">
+              <button type="button" class="stage6-bank-approve">Approve</button>
+              <button type="button" class="stage6-bank-deny">Deny</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stage7" class="section stage7-outcomes" hidden aria-labelledby="stage7-heading">
+    <p class="section-title">Stage 7</p>
+    <h2 id="stage7-heading" class="section-heading">Stage 7 — Outcomes</h2>
+    <div class="copy-stack prose-readable">
+      <p class="section-text stage7-intro">
+        Four reactions, four simulated consequences.
+      </p>
+      <p class="section-text stage7-intro">
+        Tap each message on the phone to explore what could happen next.
+      </p>
+      <p class="section-text stage7-intro">
+        There is no single correct response — each outcome shows a different path and its potential impact.
+      </p>
+      <p class="section-text stage7-intro">
+        Compare what you expected with what actually happens.
+      </p>
+      <p class="section-text stage7-intro">
+        The gap between <span class="text-key">expectation and consequence</span> is where your own rules for handling digital risks begin to form.
+      </p>
+      <p class="section-text stage7-intro">
+        Interact with all four messages to complete the experience.
+      </p>
+    </div>
+    <div class="phone-frame">
+      <div class="phone-screen stage7-phone-screen">
+        <div class="stage7-home">
+          <button type="button" class="stage7-action-btn" id="stage7-open-approve" aria-haspopup="dialog">
+            <span class="stage7-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#4ade80" stroke-width="2"/><path d="M8 12l2.5 2.5L16 9" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Approve Payment
+          </button>
+          <button type="button" class="stage7-action-btn" id="stage7-open-callback" aria-haspopup="dialog">
+            <span class="stage7-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 006 6l1.5-2 4 1.5v3a2 2 0 01-2.1 2A17 17 0 014 6.6 2 2 0 016.5 4z" stroke="#2ef2ff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </span>
+            Call Back Student
+          </button>
+          <button type="button" class="stage7-action-btn" id="stage7-open-security" aria-haspopup="dialog">
+            <span class="stage7-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 9.5c0-1.66 3.13-3 7-3s7 1.34 7 3-3.13 3-7 3c-.77 0-1.5-.05-2.2-.14L7 17v-3.2C5.7 12.9 5 11.3 5 9.5z" stroke="#c9a0ff" stroke-width="1.5" stroke-linejoin="round"/><text x="12" y="11.5" text-anchor="middle" fill="#c9a0ff" font-size="9" font-weight="700" font-family="system-ui,sans-serif">?</text></svg>
+            </span>
+            Ask Security Question
+          </button>
+          <button type="button" class="stage7-action-btn" id="stage7-open-ignore" aria-haspopup="dialog">
+            <span class="stage7-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#f87171" stroke-width="2"/><path d="M9 9l6 6M15 9l-6 6" stroke="#f87171" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            Ignore
+          </button>
+        </div>
+
+        <div id="stage7-overlay-approve" class="stage7-in-phone-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="stage7-title-approve">
+          <div class="stage7-outcome-panel" id="stage7-panel-approve">
+            <button type="button" class="stage6-overlay-close" id="stage7-close-approve" aria-label="Close">×</button>
+            <p class="stage7-outcome-title" id="stage7-title-approve">Payment Sent</p>
+            <div class="stage7-outcome-body">
+              <p>The money has been transferred to a fraudulent account.<br>It cannot be recovered.</p>
+              <p>A familiar voice and urgent request created just enough pressure to act quickly.</p>
+              <p>This was a simulated AI voice cloning scam.</p>
+              <p>In real life, a few extra seconds of verification could prevent this.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="stage7-overlay-callback" class="stage7-in-phone-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="stage7-title-callback">
+          <div class="stage7-outcome-panel" id="stage7-panel-callback">
+            <button type="button" class="stage6-overlay-close" id="stage7-close-callback" aria-label="Close">×</button>
+            <div id="stage7-title-callback">
+              <p class="stage7-outcome-title stage7-outcome-title--long">The real student answers.</p>
+              <p class="stage7-outcome-title stage7-outcome-title--long">They didn’t call you.</p>
+              <p class="stage7-outcome-title stage7-outcome-title--long">They didn’t ask for money.</p>
+              <p class="stage7-outcome-title stage7-outcome-title--long">The payment request was fake.</p>
+              <p class="stage7-outcome-title stage7-outcome-title--long">The scam is prevented successfully.</p>
+            </div>
+            <div class="stage7-outcome-body">
+              <p>The student also received a fake call earlier saying the university might contact their parents for payment.</p>
+              <p>If you had only sent a quick text like "Did you ask for this money?", they might have said yes out of confusion and urgency.</p>
+              <p>Scammers often prepare both sides of the story.</p>
+              <p>Don’t just confirm — clarify.</p>
+              <p>Ask follow-up questions. Slow the situation down.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="stage7-overlay-security" class="stage7-in-phone-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="stage7-title-security">
+          <div class="stage7-outcome-panel" id="stage7-panel-security">
+            <button type="button" class="stage6-overlay-close" id="stage7-close-security" aria-label="Close">×</button>
+            <div class="stage7-outcome-body" id="stage7-title-security">
+              <p>The caller could not answer personal questions.</p>
+              <p>The scam falls apart.</p>
+              <p>Urgency loses power when you stay calm and ask for proof.</p>
+              <p>Family safe phrases, personal questions, or unexpected details can quickly expose a fake caller.</p>
+              <p>Pause. Ask. Verify.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="stage7-overlay-ignore" class="stage7-in-phone-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="stage7-title-ignore">
+          <div class="stage7-outcome-panel" id="stage7-panel-ignore">
+            <button type="button" class="stage6-overlay-close" id="stage7-close-ignore" aria-label="Close">×</button>
+            <div class="stage7-outcome-body" id="stage7-title-ignore">
+              <p>No payment. No response. No engagement.</p>
+              <p>The scam stops here.</p>
+              <p>Ignoring suspicious requests is often the safest first move.Scams rely on quick reactions, silence removes their momentum.</p>
+              <p>Look back at the signs:</p>
+              <p>1. Urgent payment request</p>
+              <p>2. Emotional pressure</p>
+              <p>3. Authority mentioned</p>
+              <p>4. Unofficial links</p>
+              <p>5. Limited time to act</p>
+              <p>Recognising these signals is digital literacy in action.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="final-learning" class="section final-learning" hidden aria-labelledby="final-learning-heading">
+    <h2 id="final-learning-heading" class="final-learning-heading">Now what?</h2>
+    <div class="copy-stack prose-readable">
+      <p class="section-text final-learning-intro">
+        You just experienced a scam that usually unfolds slowly, compressed into a few minutes.
+      </p>
+      <p class="section-text">
+        Nothing here was extreme on its own: a message, a portal, a call, a familiar voice.
+      </p>
+      <p class="section-text">
+        The risk came from how naturally each step fit together.
+      </p>
+      <p class="section-text">
+        Keep this as a mental reference point.
+      </p>
+      <p class="section-text">
+        When something similar appears in real life, it may not feel unfamiliar and that familiarity creates space to <span class="text-key">pause and think</span>. That is the point of this.
+      </p>
+      <p class="section-text">
+        <span class="text-key">Exposure</span> builds recognition.
+      </p>
+      <p class="section-text">
+        Recognition builds hesitation.
+      </p>
+      <p class="section-text">
+        And hesitation often changes outcomes.
+      </p>
+      <p class="section-text">
+        This is how digital literacy takes shape.
+      </p>
+    </div>
+    <h3 class="final-learning-sub">Tips</h3>
+    <ul class="final-learning-list">
+      <li>When money or sensitive data is in play, treat the clock as a tactic—legitimate processes rarely expire in the breathless window a stranger gives you.</li>
+      <li>Confirm through a route you open yourself (official app, known number you dial, in-person), not through a link, reply, or callback from the same thread.</li>
+      <li>Extraordinary threats (arrest, deregistration, frozen accounts) deserve ordinary fraud suspicion until a calm, second check says otherwise.</li>
+      <li>Pressure and authority tend to appear together in high-risk situations.</li>
+      <li>Trusted systems rarely ask for sensitive actions through unfamiliar paths.</li>
+    </ul>
+    <h3 class="final-learning-sub">Questions to ask yourself?</h3>
+    <ul class="final-learning-list">
+      <li>At which step did familiarity make you relax, and was that relaxation earned or assumed?</li>
+      <li>If you removed tone of voice, what was left that actually proved who was on the other end?</li>
+      <li>Which part of this flow would you want someone you care about to rehearse, and what would you hope they notice first?</li>
+      <li>How much urgency would it take for you to skip verification in real life?</li>
+      <li>If a voice can be copied, what should identity rely on instead?</li>
+      <li>Would you rather slow down and be wrong, or act fast and risk being wrong?</li>
+      <li>In a world where technology can imitate trust, what habits make trust real again?</li>
+    </ul>
+  </section>
+</main>
+
+<!-- Email preview modal -->
+<div id="email-modal" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="email-modal-subject">
+  <div class="modal-panel modal-panel--email">
+    <div class="email-modal-chrome">Simulated message — for education only</div>
+    <button type="button" class="modal-close" id="email-modal-close" aria-label="Close email">×</button>
+    <div class="email-modal-body">
+      <p class="email-subject" id="email-modal-subject">Subject: Important: Tuition Payment Processing Notice – Verification Required</p>
+      <hr class="email-rule" aria-hidden="true">
+      <p class="email-from">From: Bristol University Finance Team &lt;bristol.studentfinancehelpdesk@gmail.com&gt;</p>
+      <div class="email-body-text">
+        <p>Dear Student,</p>
+        <p>The University of Bristol financial services system is currently undergoing scheduled updates and security improvements.</p>
+        <p>Our records shows that your student account requires verification to ensure tuition and accommodation payments continue to be processed correctly.</p>
+        <p>All students must complete this verification within 24 hours to avoid interruption to financial services.</p>
+        <p>Please verify your details using the secure student portal below:<br><span class="email-fake-url">https://bristol-finance-secureportal.co.uk/verify-student</span></p>
+        <p>Failure to complete verification may result in temporary suspension of financial services and delayed tuition processing.</p>
+        <p>This is an automated message. Please do not ignore.</p>
+        <p>Kind regards,<br>Finance Support Team<br>University of Bristol Student Finance</p>
+      </div>
+      <div class="email-letterhead">
+        <img class="email-letterhead-img" src="images/uob-logo.png" width="512" height="120" alt="University of Bristol">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function initProseReveal() {
+  if (!document.documentElement.classList.contains("js")) return;
+  var stacks = document.querySelectorAll(".copy-stack.prose-animate");
+  if (!stacks.length) return;
+  var prefersReduced =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReduced || typeof IntersectionObserver === "undefined") {
+    stacks.forEach(function (el) {
+      el.classList.add("is-visible");
+    });
+    return;
+  }
+  var io = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.06 }
+  );
+  stacks.forEach(function (el) {
+    io.observe(el);
+  });
+})();
+
+(function () {
+  var emailBtn = document.getElementById("open-fake-email-btn");
+  var emailModal = document.getElementById("email-modal");
+  var emailModalClose = document.getElementById("email-modal-close");
+  var portalContinue = document.getElementById("portal-continue-btn");
+  var portalForm = document.getElementById("portal-form");
+  var portalLoading = document.getElementById("portal-loading");
+  var portalVoiceMsg = document.getElementById("portal-voice-msg");
+  var portalIntroLines = document.getElementById("portal-intro-lines");
+  var callUi = document.getElementById("call-ui-wrap");
+  var PORTAL_LOAD_MS = 10000;
+
+  function openEmailModal() {
+    emailModal.hidden = false;
+    document.body.style.overflow = "hidden";
+    emailModalClose.focus();
+  }
+
+  function closeEmailModal() {
+    emailModal.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  if (emailBtn) emailBtn.addEventListener("click", openEmailModal);
+  if (emailModalClose) emailModalClose.addEventListener("click", closeEmailModal);
+  if (emailModal) {
+    emailModal.addEventListener("click", function (e) {
+      if (e.target === emailModal) closeEmailModal();
+    });
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && emailModal && !emailModal.hidden) closeEmailModal();
+  });
+
+  if (portalContinue) {
+    portalContinue.addEventListener("click", function () {
+      portalForm.hidden = true;
+      portalContinue.hidden = true;
+      if (portalLoading) portalLoading.hidden = false;
+      if (portalVoiceMsg) portalVoiceMsg.hidden = true;
+      if (callUi) callUi.hidden = true;
+
+      window.setTimeout(function () {
+        if (portalLoading) portalLoading.hidden = true;
+        if (portalIntroLines) portalIntroLines.hidden = true;
+        if (portalVoiceMsg) portalVoiceMsg.hidden = false;
+        if (callUi) callUi.hidden = false;
+        var stage2 = document.getElementById("stage2");
+        if (stage2) stage2.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, PORTAL_LOAD_MS);
+    });
+  }
+
+  var stage3Audio = document.getElementById("stage3-intro-audio");
+  var stage3PlayBtn = document.getElementById("stage3-play-btn");
+  var stage3PlayIcon = document.getElementById("stage3-play-icon");
+  var stage3PlayLabel = document.getElementById("stage3-play-label");
+  var stage3Seek = document.getElementById("stage3-seek");
+  var stage3SeekDragging = false;
+
+  function syncStage3PlayUi() {
+    if (!stage3Audio || !stage3PlayIcon || !stage3PlayLabel) return;
+    if (stage3Audio.paused) {
+      stage3PlayIcon.textContent = "▶";
+      stage3PlayLabel.textContent = "Play fake call";
+    } else {
+      stage3PlayIcon.textContent = "⏸";
+      stage3PlayLabel.textContent = "Pause";
+    }
+  }
+
+  syncStage3PlayUi();
+
+  function stage3Duration() {
+    var d = stage3Audio && stage3Audio.duration;
+    return d && isFinite(d) ? d : 0;
+  }
+
+  function updateStage3SeekFromAudio() {
+    if (!stage3Seek || !stage3Audio || stage3SeekDragging) return;
+    var d = stage3Duration();
+    if (d > 0) stage3Seek.value = String(stage3Audio.currentTime);
+  }
+
+  if (stage3Audio && stage3Seek) {
+    stage3Audio.addEventListener("loadedmetadata", function () {
+      var d = stage3Duration();
+      stage3Seek.max = d > 0 ? String(d) : "100";
+      updateStage3SeekFromAudio();
+    });
+    stage3Audio.addEventListener("timeupdate", updateStage3SeekFromAudio);
+    stage3Seek.addEventListener("pointerdown", function () {
+      stage3SeekDragging = true;
+    });
+    window.addEventListener("pointerup", function () {
+      stage3SeekDragging = false;
+    });
+    window.addEventListener("pointercancel", function () {
+      stage3SeekDragging = false;
+    });
+    stage3Seek.addEventListener("change", function () {
+      if (stage3Audio) stage3Audio.currentTime = Number(stage3Seek.value);
+    });
+    stage3Seek.addEventListener("input", function () {
+      if (stage3Audio && stage3SeekDragging) stage3Audio.currentTime = Number(stage3Seek.value);
+    });
+  }
+
+  if (stage3Audio && stage3PlayBtn) {
+    stage3PlayBtn.addEventListener("click", function () {
+      if (stage3Audio.paused) {
+        stage3Audio.play().catch(function () {
+          if (stage3PlayLabel) stage3PlayLabel.textContent = "Audio unavailable";
+        });
+      } else {
+        stage3Audio.pause();
+      }
+    });
+    stage3Audio.addEventListener("play", syncStage3PlayUi);
+    stage3Audio.addEventListener("pause", syncStage3PlayUi);
+    stage3Audio.addEventListener("ended", function () {
+      stage3Audio.currentTime = 0;
+      syncStage3PlayUi();
+      updateStage3SeekFromAudio();
+    });
+  }
+
+  var agentAudio = document.getElementById("stage3-agent-audio");
+  var agentPlayBtn = document.getElementById("stage3-agent-play-btn");
+  var agentPlayIcon = document.getElementById("stage3-agent-play-icon");
+  var agentPlayLabel = document.getElementById("stage3-agent-play-label");
+  var agentSeek = document.getElementById("stage3-agent-seek");
+  var agentSeekDragging = false;
+
+  function syncAgentPlayUi() {
+    if (!agentAudio || !agentPlayIcon || !agentPlayLabel) return;
+    if (agentAudio.paused) {
+      agentPlayIcon.textContent = "▶";
+      agentPlayLabel.textContent = "Simulate AI Agent Call";
+    } else {
+      agentPlayIcon.textContent = "⏸";
+      agentPlayLabel.textContent = "Pause";
+    }
+  }
+
+  syncAgentPlayUi();
+
+  function agentDuration() {
+    var d = agentAudio && agentAudio.duration;
+    return d && isFinite(d) ? d : 0;
+  }
+
+  function updateAgentSeekFromAudio() {
+    if (!agentSeek || !agentAudio || agentSeekDragging) return;
+    var d = agentDuration();
+    if (d > 0) agentSeek.value = String(agentAudio.currentTime);
+  }
+
+  if (agentAudio && agentSeek) {
+    agentAudio.addEventListener("loadedmetadata", function () {
+      var d = agentDuration();
+      agentSeek.max = d > 0 ? String(d) : "100";
+      updateAgentSeekFromAudio();
+    });
+    agentAudio.addEventListener("timeupdate", updateAgentSeekFromAudio);
+    agentSeek.addEventListener("pointerdown", function () {
+      agentSeekDragging = true;
+    });
+    window.addEventListener("pointerup", function () {
+      agentSeekDragging = false;
+    });
+    window.addEventListener("pointercancel", function () {
+      agentSeekDragging = false;
+    });
+    agentSeek.addEventListener("change", function () {
+      if (agentAudio) agentAudio.currentTime = Number(agentSeek.value);
+    });
+    agentSeek.addEventListener("input", function () {
+      if (agentAudio && agentSeekDragging) agentAudio.currentTime = Number(agentSeek.value);
+    });
+  }
+
+  if (agentAudio && agentPlayBtn) {
+    agentPlayBtn.addEventListener("click", function () {
+      if (agentAudio.paused) {
+        agentAudio.play().catch(function () {
+          if (agentPlayLabel) agentPlayLabel.textContent = "Audio unavailable";
+        });
+      } else {
+        agentAudio.pause();
+      }
+    });
+    agentAudio.addEventListener("play", syncAgentPlayUi);
+    agentAudio.addEventListener("pause", syncAgentPlayUi);
+    agentAudio.addEventListener("ended", function () {
+      agentAudio.currentTime = 0;
+      syncAgentPlayUi();
+      updateAgentSeekFromAudio();
+    });
+  }
+
+  (function initStage6() {
+    var openSms = document.getElementById("stage6-open-sms");
+    var openBank = document.getElementById("stage6-open-bank");
+    var smsOverlay = document.getElementById("stage6-sms-overlay");
+    var bankOverlay = document.getElementById("stage6-bank-overlay");
+    var smsClose = document.getElementById("stage6-sms-close");
+    var bankClose = document.getElementById("stage6-bank-close");
+    var smsPanel = document.getElementById("stage6-sms-panel");
+    var bankPanel = document.getElementById("stage6-bank-panel");
+
+    function closeSms() {
+      if (!smsOverlay) return;
+      smsOverlay.hidden = true;
+      if (!window.__stage6SmsSeen) {
+        window.__stage6SmsSeen = true;
+        if (openBank) openBank.hidden = false;
+      }
+    }
+
+    function closeBank() {
+      if (bankOverlay) bankOverlay.hidden = true;
+    }
+
+    function openSmsDialog() {
+      if (smsOverlay) smsOverlay.hidden = false;
+      if (bankOverlay) bankOverlay.hidden = true;
+    }
+
+    function openBankDialog() {
+      if (bankOverlay) bankOverlay.hidden = false;
+      if (smsOverlay) smsOverlay.hidden = true;
+    }
+
+    if (openSms) openSms.addEventListener("click", openSmsDialog);
+    if (openBank) openBank.addEventListener("click", openBankDialog);
+    if (smsClose) smsClose.addEventListener("click", closeSms);
+    if (bankClose) bankClose.addEventListener("click", closeBank);
+
+    if (smsOverlay) {
+      smsOverlay.addEventListener("click", function (e) {
+        if (e.target === smsOverlay) closeSms();
+      });
+    }
+    if (smsPanel) {
+      smsPanel.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+    }
+
+    if (bankOverlay) {
+      bankOverlay.addEventListener("click", function (e) {
+        if (e.target === bankOverlay) closeBank();
+      });
+    }
+    if (bankPanel) {
+      bankPanel.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      if (smsOverlay && !smsOverlay.hidden) closeSms();
+      else if (bankOverlay && !bankOverlay.hidden) closeBank();
+    });
+
+    window.resetStage6Ui = function () {
+      window.__stage6SmsSeen = false;
+      if (smsOverlay) smsOverlay.hidden = true;
+      if (bankOverlay) bankOverlay.hidden = true;
+      if (openBank) openBank.hidden = true;
+    };
+  })();
+
+  (function initStage7() {
+    var overlays = [
+      document.getElementById("stage7-overlay-approve"),
+      document.getElementById("stage7-overlay-callback"),
+      document.getElementById("stage7-overlay-security"),
+      document.getElementById("stage7-overlay-ignore"),
+    ];
+    var panels = [
+      document.getElementById("stage7-panel-approve"),
+      document.getElementById("stage7-panel-callback"),
+      document.getElementById("stage7-panel-security"),
+      document.getElementById("stage7-panel-ignore"),
+    ];
+
+    function closeAll() {
+      overlays.forEach(function (o) {
+        if (o) o.hidden = true;
+      });
+    }
+
+    function openOne(overlay) {
+      closeAll();
+      if (overlay) overlay.hidden = false;
+    }
+
+    var pairs = [
+      { btn: "stage7-open-approve", overlay: "stage7-overlay-approve", close: "stage7-close-approve" },
+      { btn: "stage7-open-callback", overlay: "stage7-overlay-callback", close: "stage7-close-callback" },
+      { btn: "stage7-open-security", overlay: "stage7-overlay-security", close: "stage7-close-security" },
+      { btn: "stage7-open-ignore", overlay: "stage7-overlay-ignore", close: "stage7-close-ignore" },
+    ];
+
+    pairs.forEach(function (p) {
+      var btn = document.getElementById(p.btn);
+      var ov = document.getElementById(p.overlay);
+      var closeBtn = document.getElementById(p.close);
+      if (btn && ov) {
+        btn.addEventListener("click", function () {
+          openOne(ov);
+        });
+      }
+      if (closeBtn) closeBtn.addEventListener("click", closeAll);
+    });
+
+    overlays.forEach(function (ov, i) {
+      if (!ov) return;
+      ov.addEventListener("click", function (e) {
+        if (e.target === ov) closeAll();
+      });
+      var panel = panels[i];
+      if (panel) {
+        panel.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      }
+    });
+
+    document.addEventListener(
+      "keydown",
+      function (e) {
+        if (e.key !== "Escape") return;
+        var anyOpen = overlays.some(function (o) {
+          return o && !o.hidden;
+        });
+        if (anyOpen) {
+          e.stopImmediatePropagation();
+          closeAll();
+        }
+      },
+      true
+    );
+
+    window.resetStage7Ui = function () {
+      closeAll();
+    };
+  })();
+})();
+</script>
+
+<script src="recorder.js"></script>
+
+</body>
+</html>
