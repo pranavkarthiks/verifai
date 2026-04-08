@@ -80,6 +80,64 @@
       border-bottom-color: #2ef2ff;
     }
 
+    .stage-nav-dropdown {
+      position: relative;
+    }
+
+    .stage-nav-dropdown summary {
+      list-style: none;
+      cursor: pointer;
+      color: #e0e0e0;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s ease, border-bottom-color 0.15s ease;
+      user-select: none;
+    }
+
+    .stage-nav-dropdown summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .stage-nav-dropdown summary:hover {
+      color: #2ef2ff;
+      border-bottom-color: #2ef2ff;
+    }
+
+    .stage-nav-menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      min-width: 150px;
+      max-height: 136px;
+      overflow-y: auto;
+      background: #0a0a0a;
+      border: 1px solid rgba(46, 242, 255, 0.35);
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      padding: 8px;
+      display: grid;
+      gap: 6px;
+      z-index: 20;
+    }
+
+    .stage-nav-menu a {
+      border-bottom: none;
+      padding: 6px 8px;
+      border-radius: 6px;
+      color: #d7d7d7;
+      font-size: 0.9rem;
+    }
+
+    .stage-nav-menu a:hover {
+      border-bottom: none;
+      color: #2ef2ff;
+      background: rgba(46, 242, 255, 0.1);
+    }
+
+    .nav-start-demo {
+      margin-left: auto;
+    }
+
     button {
       padding: 10px 16px;
       margin: 8px 0;
@@ -1775,11 +1833,23 @@
   <nav class="verifai-nav">
     <div class="verifai-brand">VerifAI</div>
     <div class="verifai-nav-links">
-      <a href="#welcome">Home</a>
-      <a href="#about">About us</a>
-      <a href="#what-is-this">What is this?</a>
-      <button class="btn-primary" type="button" onclick="document.getElementById('stage1').scrollIntoView({ behavior: 'smooth' });">
-        Start demo
+      <a href="#about">About Us</a>
+      <a href="#final-learning">Now What?</a>
+      <a href="#tips">Tips</a>
+      <details class="stage-nav-dropdown">
+        <summary>Stage</summary>
+        <div class="stage-nav-menu" role="menu" aria-label="Stages">
+          <a href="#stage1" role="menuitem">Stage 1</a>
+          <a href="#stage2" role="menuitem">Stage 2</a>
+          <a href="#demo" role="menuitem">Stage 3</a>
+          <a href="#stage4" role="menuitem">Stage 4</a>
+          <a href="#stage5" role="menuitem">Stage 5</a>
+          <a href="#stage6" role="menuitem">Stage 6</a>
+          <a href="#stage7" role="menuitem">Stage 7</a>
+        </div>
+      </details>
+      <button class="btn-primary nav-start-demo" type="button" onclick="document.getElementById('stage1').scrollIntoView({ behavior: 'smooth' });">
+        Start Demo
       </button>
     </div>
   </nav>
@@ -1811,7 +1881,7 @@
     <h2 id="about-heading" class="section-heading">About Us</h2>
     <div class="copy-stack prose-readable prose-animate">
       <p class="section-text">
-        VerifAI is an interactive online experience centre designed to help people understand and navigate the growing world of <span class="text-key">AI-generated scams</span>. As artificial intelligence becomes more powerful and accessible, scams are no longer limited to suspicious emails or poorly written messages. Today, they can sound human, look official, and feel urgent. VerifAI exists to bridge the gap between awareness and real-world preparedness.
+        <span class="text-key">VerifAI is an interactive online experience centre designed to help people understand and navigate the growing world of AI-generated scams</span>. As artificial intelligence becomes more powerful and accessible, scams are no longer limited to suspicious emails or poorly written messages. Today, they can sound human, look official, and feel urgent. VerifAI exists to bridge the gap between awareness and real-world preparedness.
       </p>
       <p class="section-text">
         Our mission is simple: help people build practical <span class="text-key">digital literacy</span> by experiencing scams in a safe and controlled environment. Instead of reading about risks, visitors move through realistic scenarios that mirror how modern scams unfold in everyday life — from a single phishing email to voice cloning and financial fraud. Each stage encourages users to observe, question, and reflect on their own instincts and decisions.
@@ -2381,7 +2451,7 @@ Ref: STU-20491</div>
         This is how digital literacy takes shape.
       </p>
     </div>
-    <h3 class="final-learning-sub">Tips</h3>
+    <h3 id="tips" class="final-learning-sub">Tips</h3>
     <ul class="final-learning-list">
       <li>When money or sensitive data is in play, treat the clock as a tactic—legitimate processes rarely expire in the breathless window a stranger gives you.</li>
       <li>Confirm through a route you open yourself (official app, known number you dial, in-person), not through a link, reply, or callback from the same thread.</li>
@@ -2455,6 +2525,31 @@ Ref: STU-20491</div>
   );
   stacks.forEach(function (el) {
     io.observe(el);
+  });
+})();
+
+(function initNavAnchorTargets() {
+  var navAnchors = document.querySelectorAll(".verifai-nav-links a[href^='#']");
+  if (!navAnchors.length) return;
+
+  function revealHiddenAncestors(node) {
+    var current = node;
+    while (current && current !== document.body) {
+      if (current.hasAttribute && current.hasAttribute("hidden")) {
+        current.hidden = false;
+      }
+      current = current.parentElement;
+    }
+  }
+
+  navAnchors.forEach(function(anchor) {
+    anchor.addEventListener("click", function() {
+      var href = anchor.getAttribute("href");
+      if (!href || href.charAt(0) !== "#") return;
+      var target = document.querySelector(href);
+      if (!target) return;
+      revealHiddenAncestors(target);
+    });
   });
 })();
 

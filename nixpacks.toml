@@ -5,4 +5,4 @@ nixPkgs = ["ffmpeg"]
 cmds = ["cd backend && npm install"]
 
 [start]
-cmd = "cd backend && npm start"
+cmd = "cd backend && node server.js"
