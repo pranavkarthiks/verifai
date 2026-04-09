@@ -5,6 +5,10 @@ import path from "path";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { exec } from "child_process";
+import ffmpeg from "fluent-ffmpeg";
+import ffmpegPath from "ffmpeg-static";
+
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 dotenv.config();
 
