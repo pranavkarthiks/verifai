@@ -205,4 +205,197 @@ I can’t stay on the call for long because I’m speaking with the university s
 <break time="3s"/>
 Thanks Mom… I really appreciate it.`;
 
-// (rest of file remains exactly the same)
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+/**
+ * Same ElevenLabs TTS pipeline for every output file: randomised speed, stability,
+ * similarity_boost, and style on each call (short scam, regenerate, or parent script).
+ */
+async function generateScamAudioToFile(voiceId, text, outFilename) {
+  const speed = Number(randomInRange(1.07, 1.17).toFixed(2));
+  const stability = Number(randomInRange(0.30, 0.50).toFixed(2));
+  const similarityBoost = Number(randomInRange(0.75, 0.90).toFixed(2));
+  const styleExaggeration = Number(randomInRange(0.15, 0.30).toFixed(2));
+
+  console.log("Voice settings (same randomisation for all scripts) →", {
+    speed,
+    stability,
+    similarity_boost: similarityBoost,
+    style: styleExaggeration,
+    outFilename
+  });
+
+  const res = await fetch(
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+    {
+      method: "POST",
+      headers: {
+        "xi-api-key": process.env.ELEVENLABS_API_KEY,
+        "Content-Type": "application/json",
+        Accept: "audio/mpeg"
+      },
+      body: JSON.stringify({
+        text,
+        model_id: "eleven_multilingual_v2",
+        voice_settings: {
+          stability,
+          similarity_boost: similarityBoost,
+          style: styleExaggeration,
+          use_speaker_boost: true,
+          speed
+        }
+      })
+    }
+  );
+
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error("TTS error:", errText);
+    const err = new Error("TTS failed");
+    err.detail = errText;
+    throw err;
+  }
+
+  const buffer = Buffer.from(await res.arrayBuffer());
+  const outPath = path.join(__dirname, outFilename);
+  fs.writeFileSync(outPath, buffer);
+}
+
+async function generateScamAudio(voiceId) {
+  await generateScamAudioToFile(voiceId, SCRIPT, "generated_scam_call.mp3");
+}
+
+// --------------------
+// First simulation
+// --------------------
+
+api.post("/simulate-scam", async (req, res) => {
+  try {
+    const latest = getLatestRecording();
+
+    if (!latest) {
+      return res.status(400).json({ error: "No recording found" });
+    }
+
+    console.log("Latest recording:", latest);
+
+    const wavPath = await convertWebMToWav(latest);
+    console.log("Converted to WAV:", wavPath);
+
+    let durationSec = null;
+    try {
+      durationSec = await getWavDurationSec(wavPath);
+      console.log("WAV duration (s):", durationSec);
+    } catch (probeErr) {
+      console.warn("ffprobe duration failed:", probeErr?.message || probeErr);
+    }
+    if (
+      durationSec !== null &&
+      durationSec > MAX_VOICE_SAMPLE_SECONDS
+    ) {
+      return res.status(400).json({
+        error: RECORDING_TOO_LONG_MESSAGE,
+        code: "RECORDING_TOO_LONG",
+      });
+    }
+
+    currentVoiceId = await cloneVoice(wavPath);
+    console.log("Voice cloned:", currentVoiceId);
+
+    await generateScamAudio(currentVoiceId);
+
+    res.json({
+      success: true,
+      audio: "/generated_scam_call.mp3"
+    });
+
+  } catch (err) {
+    console.error("Simulation error:", err);
+    if (err.code === "RECORDING_TOO_LONG") {
+      return res.status(400).json({
+        error: RECORDING_TOO_LONG_MESSAGE,
+        code: "RECORDING_TOO_LONG",
+      });
+    }
+    res.status(500).json({ error: "Simulation failed" });
+  }
+});
+
+// --------------------
+// Try again (same voice)
+// --------------------
+
+api.post("/generate-again", async (req, res) => {
+  try {
+
+    if (!currentVoiceId) {
+      return res.status(400).json({
+        error: "No voice clone available"
+      });
+    }
+
+    console.log("Regenerating with voice:", currentVoiceId);
+
+    await generateScamAudio(currentVoiceId);
+
+    res.json({
+      success: true,
+      audio: "/generated_scam_call.mp3"
+    });
+
+  } catch (err) {
+    console.error("Generate again error:", err);
+    res.status(500).json({
+      error: "Generate again failed"
+    });
+  }
+});
+
+// --------------------
+// Stage 5 — longer parent scam call (same cloned voice)
+// --------------------
+
+api.post("/parent-scam-call", async (req, res) => {
+  try {
+    if (!currentVoiceId) {
+      return res.status(400).json({
+        error: "No voice clone available. Complete Stage 4 first."
+      });
+    }
+
+    console.log("Parent scam TTS with voice:", currentVoiceId);
+
+    await generateScamAudioToFile(
+      currentVoiceId,
+      PARENT_SCAM_SCRIPT,
+      "generated_parent_scam_call.mp3"
+    );
+
+    res.json({
+      success: true,
+      audio: "/generated_parent_scam_call.mp3"
+    });
+  } catch (err) {
+    console.error("Parent scam call error:", err);
+    const detail =
+      err && typeof err.detail === "string"
+        ? err.detail.slice(0, 500)
+        : err?.message || "";
+    res.status(500).json({
+      error: "Parent scam call generation failed",
+      detail
+    });
+  }
+});
+
+app.use("/api", api);
+
+// Static files last
+app.use(express.static(path.join(__dirname, "../frontend")));
+app.use(express.static(__dirname));
+
+app.listen(PORT, () =>
+  console.log(`Backend running → http://localhost:${PORT}`)
+);
