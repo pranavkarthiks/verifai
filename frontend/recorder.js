@@ -7,6 +7,10 @@ const MAX_RECORDING_MS = 120 * 1000;
 const RECORDING_TOO_LONG_USER_MSG =
   "Your recording is longer than 2 minutes. The voice cloning service cannot process it. Please record again and submit a sample under 2 minutes.";
 
+/** Shown when /api/simulate-scam or regenerate fails — user can record again from Stage 3 */
+const STAGE4_SCAM_FAIL_RETRY_HINT =
+  'Press "Start Recording" again to record another sample and give the simulation another chance.';
+
 /** When the page is opened from another port (e.g. Live Server), API and MP3s live on :3001 */
 function apiUrl(path) {
   if (typeof window === "undefined") return path;
@@ -281,6 +285,12 @@ async function runStage4ScamGeneration() {
         ? err.message
         : `Failed to generate scam call.${err?.message ? " " + err.message : ""}`;
       scamResult.appendChild(errP);
+      if (!tooLong) {
+        const hintP = document.createElement("p");
+        hintP.className = "scam-generation-error scam-generation-retry-hint";
+        hintP.textContent = STAGE4_SCAM_FAIL_RETRY_HINT;
+        scamResult.appendChild(hintP);
+      }
     }
     statusText.textContent = tooLong ? err.message : "";
   }
@@ -328,7 +338,16 @@ function showScamAudio(audioPath) {
 
       showScamAudio(data.audio);
     } catch {
-      scamResult.innerHTML = "Failed to regenerate scam call.";
+      scamResult.innerHTML = "";
+      const errP = document.createElement("p");
+      errP.className = "scam-generation-error";
+      errP.textContent = "Failed to regenerate scam call.";
+      scamResult.appendChild(errP);
+      const hintP = document.createElement("p");
+      hintP.className = "scam-generation-error scam-generation-retry-hint";
+      hintP.textContent = STAGE4_SCAM_FAIL_RETRY_HINT;
+      scamResult.appendChild(hintP);
+      tryAgainBtn.disabled = false;
     }
   });
 
