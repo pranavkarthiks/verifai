@@ -1,17 +1,21 @@
 {
-  "dependencies": {
-    "dotenv": "^17.2.3"
-  },
-  "name": "ai-scam-experience",
+  "name": "verifai",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "devDependencies": {},
+  "description": "VerifAI backend and tooling",
+  "type": "module",
+  "main": "backend/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "fluent-ffmpeg": "^2.1.3",
+    "form-data": "^4.0.5",
+    "multer": "^2.0.2",
+    "dotenv": "^17.2.3"
+  }
 }
