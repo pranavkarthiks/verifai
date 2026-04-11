@@ -185,24 +185,24 @@ async function cloneVoice(filePath) {
 
 const SCRIPT = `
 Hey Mom… it’s me... I’m really sorry...uhm...to call like this, but something’s gone wrong with my university payment and they’ve frozen my account!
-<break time="2s"/>
+<break time="0.5s"/>
 They said if the tuition isn’t cleared today I could lose my enrollment for the term.
-<break time="2s"/>
+<break time="0.3s"/>
 Can you please just help me sort this out quickly? I’ll explain everything properly later. Byee love you!
 `;
 
 const PARENT_SCAM_SCRIPT = `Hey Mom… it’s me.
-<break time="2s"/>
+<break time="0.3s"/>
 I know this is a bit sudden, but I’m in the middle of sorting out my university tuition and something’s gone wrong with the payment system!
-<break time="2s"/>
+<break time="0.5s"/>
 They’ve locked my student account and I can’t access my portal or bank anymore.
-<break time="1s"/>
+<break time="0.3s"/>
 The university said they’re going to send you a message... with a payment link or something so the fees can be cleared quickly.
-<break time="2s"/>
+<break time="0.5s"/>
 Could you pleaseee take a look at it when it comes and approve it? I really don’t want this to delay anything!
-<break time="2s"/>
+<break time="0.3s"/>
 I can’t stay on the call for long because I’m speaking with the university support team, but I’ll call you properly and explain everything later!
-<break time="3s"/>
+<break time="0.7s"/>
 Thanks Mom… I really appreciate it.`;
 
 function randomInRange(min, max) {

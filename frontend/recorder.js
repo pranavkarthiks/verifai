@@ -371,7 +371,11 @@ function showScamAudio(audioPath) {
   const stage7 = document.getElementById("stage7");
   if (stage7) stage7.hidden = false;
   const finalLearning = document.getElementById("final-learning");
-  if (finalLearning) finalLearning.hidden = false;
+  if (finalLearning) {
+    finalLearning.hidden = false;
+    const flStack = finalLearning.querySelector(".copy-stack.prose-animate");
+    if (flStack) flStack.classList.add("is-visible");
+  }
 }
 
 window.resetStage5ParentCallCache = function () {
