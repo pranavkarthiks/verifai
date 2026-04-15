@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VerifAI – AI Over the Years</title>
+  <script>document.documentElement.classList.add("js");</script>
+  <style>
+    :root {
+      --cyan: #2ef2ff;
+      --cyan-dim: rgba(46, 242, 255, 0.22);
+      --red: #ff4b4b;
+      --bg: #000;
+      --text: #f5f5f5;
+      --muted: #8f9ba8;
+      --card: rgba(18, 22, 30, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .verifai-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #000;
+      border-bottom: 1px solid rgba(46, 242, 255, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    .verifai-nav {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .verifai-brand {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .verifai-brand:hover {
+      color: #6af0ff;
+    }
+
+    .nav-back {
+      color: #c8d0d8;
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .nav-back:hover {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    .evo-hero {
+      text-align: center;
+      padding: 24px 0 40px;
+    }
+
+    .evo-hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(1.65rem, 4.5vw, 2.2rem);
+      color: var(--cyan);
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .evo-hero-lead {
+      margin: 0 auto;
+      max-width: 36rem;
+      font-size: 1.05rem;
+      color: #d4dce6;
+      line-height: 1.65;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+
+    h2.evo-h2 {
+      margin: 0 0 12px;
+      font-size: 1.45rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .evo-section {
+      margin-top: 48px;
+    }
+
+    .evo-p {
+      margin: 0 0 12px;
+      color: #c8d4e0;
+      font-size: 1rem;
+      line-height: 1.65;
+      max-width: 40rem;
+    }
+
+    .evo-p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Timeline blocks */
+    .evo-timeline-block {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--cyan-dim);
+      background: linear-gradient(145deg, rgba(46, 242, 255, 0.06) 0%, rgba(0, 0, 0, 0.4) 100%);
+    }
+
+    .evo-timeline-block h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .evo-year-label {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .evo-slider-wrap {
+      margin: 16px 0 12px;
+    }
+
+    .evo-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .evo-range {
+      flex: 1;
+      min-width: 200px;
+      height: 8px;
+      border-radius: 999px;
+      accent-color: var(--cyan);
+      cursor: pointer;
+    }
+
+    .evo-year-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-top: 8px;
+      padding: 0 2px;
+    }
+
+    .evo-edu {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(46, 242, 255, 0.06);
+      font-size: 0.95rem;
+      color: #e2eaf0;
+      line-height: 1.55;
+      min-height: 3.2em;
+      transition: opacity 0.2s ease;
+    }
+
+    .evo-edu.is-updating {
+      opacity: 0.55;
+    }
+
+    /* Year-by-year illustrative stills (same scenario: press conference — quality evolves) */
+    .evo-visual {
+      margin-top: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(46, 242, 255, 0.28);
+      aspect-ratio: 4 / 3;
+      position: relative;
+      background: #0a0e12;
+    }
+
+    .evo-visual-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: opacity 0.25s ease;
+    }
+
+    .evo-visual-badge {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(46, 242, 255, 0.95);
+      text-shadow: 0 1px 8px #000;
+    }
+
+    .evo-audio-row {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .evo-audio-row audio {
+      width: 100%;
+      max-height: 40px;
+      border-radius: 8px;
+    }
+
+    .evo-audio-hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* Same script */
+    .evo-h3-sub {
+      margin: 0 0 14px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .evo-cards--tight {
+      margin-top: 4px;
+    }
+
+    /* Cards grid */
+    .evo-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 560px) {
+      .evo-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .evo-card {
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--cyan-dim);
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .evo-card h4 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .evo-card p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #c4d0de;
+      line-height: 1.5;
+    }
+
+    /* Time compression chart */
+    .evo-chart {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--cyan-dim);
+      background: rgba(46, 242, 255, 0.04);
+    }
+
+    .evo-chart-svg {
+      width: 100%;
+      height: auto;
+      max-height: 180px;
+    }
+
+    .evo-callout {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px dashed rgba(46, 242, 255, 0.35);
+      font-size: 0.92rem;
+      color: #d0dce8;
+      line-height: 1.55;
+    }
+
+    .evo-fin {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(46, 242, 255, 0.15);
+    }
+
+    .evo-fin .evo-h2 {
+      color: var(--cyan);
+    }
+
+    .evo-fin-line {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 16px;
+    }
+
+    .evo-visual-caption {
+      margin-top: 10px;
+      font-size: 0.72rem;
+      line-height: 1.45;
+      color: #7a8a9a;
+      max-width: 38rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .evo-visual-photo {
+        transition: none;
+      }
+      .evo-edu {
+        transition: none;
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    code {
+      font-family: ui-monospace, monospace;
+      font-size: 0.85em;
+      color: #7fe8f5;
+    }
+  </style>
+</head>
+<body>
+  <header class="verifai-header">
+    <nav class="verifai-nav">
+      <a class="verifai-brand" href="index.html">VerifAI</a>
+      <a class="nav-back" href="index.html">← Back to experience</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="evo-hero" aria-labelledby="evo-hook">
+      <p class="section-title">Education</p>
+      <h1 id="evo-hook">This got real — quicker than the warnings.</h1>
+      <p class="evo-hero-lead">
+        <strong style="color:#e8f4ff;">AI didn’t crawl forward; it leapt. Most people still picture the clumsy version from a few years ago — while the new one already sounds like someone you know.</strong>
+      </p>
+      <p class="evo-hero-lead" style="margin-top:14px;">
+        Not long ago, a dodgy voice or a warped face was a giveaway.<br>
+        Today, callers can carry emotion; portraits can hold a gaze.<br>
+        The bar for “obviously fake” keeps moving — and it is on us to move with it.
+      </p>
+    </section>
+
+    <section class="evo-section" aria-labelledby="evo-timeline-h">
+      <p class="section-title">Compare the years</p>
+      <h2 class="evo-h2" id="evo-timeline-h">How quickly did this turn convincing?</h2>
+      <p class="evo-p">
+        Drag each timeline to a year. The visual and the clip update together — notice how little calendar distance separates “obviously off” from “hard to tell.”
+      </p>
+
+      <div class="evo-timeline-block">
+        <h3>Image deepfakes</h3>
+        <p class="evo-p" style="font-size:0.92rem;margin-bottom:12px;">
+          Same scenario across years — a press briefing–style frame — so you compare <span style="color:#7fe8f5;font-weight:600;">quality of the forgery</span>, not the setting. Stills are AI-generated for education only; they are not real event photographs.
+        </p>
+        <div class="evo-year-label" id="evo-img-year">2018</div>
+        <div class="evo-slider-wrap">
+          <div class="evo-slider-row">
+            <label class="sr-only" for="evo-slider-img">Image deepfake year</label>
+            <input type="range" id="evo-slider-img" class="evo-range" min="0" max="5" value="0" step="1" aria-valuetext="2018">
+          </div>
+          <div class="evo-year-ticks" aria-hidden="true">
+            <span>2018</span><span>2020</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span>
+          </div>
+        </div>
+        <div class="evo-visual" id="evo-visual-img" role="group" aria-label="Press conference still by year">
+          <img
+            id="evo-img-photo"
+            class="evo-visual-photo"
+            src="images/evolution/obama-press-2018.png"
+            width="800"
+            height="600"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          >
+          <div class="evo-visual-badge" id="evo-img-badge">Early synthetic look</div>
+        </div>
+        <p class="evo-visual-caption">
+          2018 is deliberately rough; 2025 approaches broadcast realism. On a small screen or at a glance, newer stills can pass — verify through source and context, not a single image.
+        </p>
+        <div class="evo-edu" id="evo-img-edu" aria-live="polite"></div>
+
+        <p class="section-title" style="margin-top: 22px;">Image track</p>
+        <h3 class="evo-h3-sub">What actually improved?</h3>
+        <div class="evo-cards evo-cards--tight">
+          <div class="evo-card">
+            <h4>Skin &amp; texture</h4>
+            <p>Plastic sheen and waxy skin gave way to pores, uneven tone, and light that sits on the face instead of floating above it.</p>
+          </div>
+          <div class="evo-card">
+            <h4>Eyes &amp; gaze</h4>
+            <p>Dead, mismatched eyes evolved into believable direction, catchlights, and micro-movements — the first place many people still look.</p>
+          </div>
+          <div class="evo-card">
+            <h4>Edges &amp; blend</h4>
+            <p>Harsh halos around hair and jawlines softened; composites sit in the scene instead of looking pasted on.</p>
+          </div>
+          <div class="evo-card">
+            <h4>Lighting match</h4>
+            <p>Faces used to ignore the room; now shadows, colour temperature, and reflections follow the environment more convincingly.</p>
+          </div>
+          <div class="evo-card" style="grid-column: 1 / -1;">
+            <h4>Motion (photo vs video)</h4>
+            <p>In video, jitter, lip slip, and odd blinking were giveaways — each generation smooths those tells, so stills and clips both need a second look.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="evo-timeline-block" style="margin-top: 24px;">
+        <h3>Audio deepfakes (voice)</h3>
+        <div class="evo-year-label" id="evo-aud-year">2018</div>
+        <div class="evo-slider-wrap">
+          <div class="evo-slider-row">
+            <label class="sr-only" for="evo-slider-aud">Audio deepfake year</label>
+            <input type="range" id="evo-slider-aud" class="evo-range" min="0" max="5" value="0" step="1" aria-valuetext="2018">
+          </div>
+          <div class="evo-year-ticks" aria-hidden="true">
+            <span>2018</span><span>2020</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span>
+          </div>
+        </div>
+        <div class="evo-audio-row">
+          <audio id="evo-audio-player" controls preload="metadata" crossorigin="anonymous"></audio>
+          <p class="evo-audio-hint" id="evo-audio-hint">
+            Optional: add clips as <code>audio/evolution/voice-2018.mp3</code> … <code>voice-2025.mp3</code>. Until then, a demo clip loads as a fallback.
+          </p>
+        </div>
+        <div class="evo-edu" id="evo-aud-edu" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="evo-section" aria-labelledby="evo-mile-h">
+      <p class="section-title">What changed</p>
+      <h2 class="evo-h2" id="evo-mile-h">What actually improved? <span style="font-weight:600;color:#8f9ba8;font-size:0.85em;">(voice &amp; scams overall)</span></h2>
+      <div class="evo-cards">
+        <div class="evo-card">
+          <h4>Voice cloning</h4>
+          <p>AI learned how to copy tone, accent, and emotion — not just words.</p>
+        </div>
+        <div class="evo-card">
+          <h4>Speech timing</h4>
+          <p>Pauses, hesitation, and urgency now sound natural — not staged.</p>
+        </div>
+        <div class="evo-card">
+          <h4>Personalisation</h4>
+          <p>Scams can reference real names, events, and relationships you recognise.</p>
+        </div>
+        <div class="evo-card" style="grid-column: 1 / -1;">
+          <h4>Speed</h4>
+          <p>What once took months of expert work now takes minutes on a laptop.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="evo-section" aria-labelledby="evo-time-h">
+      <p class="section-title">Acceleration</p>
+      <h2 class="evo-h2" id="evo-time-h">This didn’t take decades.</h2>
+      <p class="evo-p">It took years to get started — then only a short span to look and sound realistic. Improvements can now outpace how often people refresh their mental picture of what “fake” looks like.</p>
+      <div class="evo-chart" aria-hidden="true">
+        <svg class="evo-chart-svg" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#1a3a44"/>
+              <stop offset="45%" style="stop-color:#2ef2ff"/>
+              <stop offset="100%" style="stop-color:#ff4b4b"/>
+            </linearGradient>
+          </defs>
+          <path d="M 20 100 Q 80 95 120 88 T 200 60 T 280 35 T 380 15" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
+          <text x="20" y="115" fill="#8f9ba8" font-size="10">2015</text>
+          <text x="175" y="115" fill="#8f9ba8" font-size="10">~2020</text>
+          <text x="330" y="115" fill="#8f9ba8" font-size="10">Today</text>
+          <text x="20" y="14" fill="#2ef2ff" font-size="11" font-weight="700">Quality / realism →</text>
+        </svg>
+      </div>
+      <p class="evo-p" style="font-size:0.95rem;">Early slow progress, then a sharp climb after roughly 2020 — that is when scams started sounding and looking “too real” far more often.</p>
+    </section>
+
+    <section class="evo-section" aria-labelledby="evo-see-h">
+      <p class="section-title">Vision</p>
+      <h2 class="evo-h2" id="evo-see-h">Seeing is no longer believing.</h2>
+      <p class="evo-p">AI images used to look wrong in obvious ways. Now they can look completely real — even when they aren’t.</p>
+      <div class="evo-callout">
+        Small details still give synthetic media away — but only if you know where to look. Training your eye is part of the same game as training your ear.
+      </div>
+    </section>
+
+    <section class="evo-fin" aria-labelledby="evo-why-h">
+      <p class="section-title">Closing</p>
+      <h2 class="evo-h2" id="evo-why-h">Why this matters</h2>
+      <p class="evo-p" style="margin: 0 auto 16px; text-align: center; max-width: 34rem;">
+        Scams didn’t suddenly appear — they evolved. And that evolution happened in a much shorter window than many people assume.
+      </p>
+      <p class="evo-p" style="margin: 0 auto 16px; text-align: center; max-width: 34rem;">
+        Today you’re not just spotting bad grammar or strange emails. You’re judging voices, faces, and emotions — and sometimes they look and sound real.
+      </p>
+      <p class="evo-fin-line">The technology improved. Now your awareness has to catch up.</p>
+    </section>
+  </main>
+
+  <script>
+(function () {
+  var YEARS = [2018, 2020, 2022, 2023, 2024, 2025];
+
+  var COPY_IMAGE = {
+    2018: "Early AI attempts — distorted faces, obvious glitches. Easy to dismiss… for now.",
+    2020: "Better — but still off. Faces clearer; something still feels uncanny.",
+    2022: "Now it’s convincing at a glance. Expressions hold up until you stare.",
+    2023: "Hard to spot without focus. Lip-sync and lighting catch up to film.",
+    2024: "Very believable. Mistakes are subtle — wrong micro-expression, not wrong face.",
+    2025: "Almost indistinguishable in a hurry. Trust needs a process, not a glance."
+  };
+
+  var COPY_AUDIO = {
+    2018: "Robotic voices, odd cadence — the scam sounded like a machine wearing a mask.",
+    2020: "Smoother, but emotions and timing still feel “acted,” not lived.",
+    2022: "Tone and rhythm mimic real callers — panic starts to feel contagious.",
+    2023: "Natural pauses and breaths. Your brain fills in the rest.",
+    2024: "Urgency and empathy land. You react before you analyse.",
+    2025: "Voice, pacing, and personality blur into someone you could swear you know."
+  };
+
+  var BADGE = ["Early synthetic look", "Clearer, still uncanny", "Passes at a glance", "Harder to debunk", "Subtle tells only", "Almost indistinguishable"];
+
+  var imgSlider = document.getElementById("evo-slider-img");
+  var audSlider = document.getElementById("evo-slider-aud");
+  var imgYearEl = document.getElementById("evo-img-year");
+  var audYearEl = document.getElementById("evo-aud-year");
+  var imgEdu = document.getElementById("evo-img-edu");
+  var audEdu = document.getElementById("evo-aud-edu");
+  var imgPhoto = document.getElementById("evo-img-photo");
+
+  var IMAGE_PATHS = [
+    "images/evolution/obama-press-2018.png",
+    "images/evolution/obama-press-2020.png",
+    "images/evolution/obama-press-2022.png",
+    "images/evolution/obama-press-2023.png",
+    "images/evolution/obama-press-2024.png",
+    "images/evolution/obama-press-2025.png"
+  ];
+
+  var imgBadge = document.getElementById("evo-img-badge");
+  var audioPlayer = document.getElementById("evo-audio-player");
+
+  var FALLBACK_AUDIO = "audio/stage3-intro.mp3";
+
+  function yearFromIndex(i) {
+    return YEARS[Math.max(0, Math.min(5, i))];
+  }
+
+  function setEdu(el, text) {
+    if (!el) return;
+    el.classList.add("is-updating");
+    el.textContent = text;
+    requestAnimationFrame(function () {
+      el.classList.remove("is-updating");
+    });
+  }
+
+  function audioPathVoice(y) {
+    return "audio/evolution/voice-" + y + ".mp3";
+  }
+
+  function tryLoadAudio(el, primary, fallback) {
+    if (!el) return;
+    var tried = false;
+    function onErr() {
+      if (tried) return;
+      tried = true;
+      el.src = fallback;
+      el.load();
+    }
+    el.removeEventListener("error", onErr);
+    el.addEventListener("error", onErr, { once: true });
+    el.src = primary;
+    el.load();
+  }
+
+  function syncImage(i) {
+    var y = yearFromIndex(i);
+    imgYearEl.textContent = String(y);
+    if (imgPhoto && IMAGE_PATHS[i]) {
+      imgPhoto.src = IMAGE_PATHS[i];
+      imgPhoto.alt =
+        "Illustrative AI-generated press conference still — " +
+        y +
+        " era quality (education only; not a real event photo)";
+    }
+    imgBadge.textContent = BADGE[i] || BADGE[0];
+    setEdu(imgEdu, COPY_IMAGE[y] || "");
+    if (imgSlider) {
+      imgSlider.setAttribute("aria-valuetext", String(y));
+    }
+  }
+
+  function syncAudioTrack(i) {
+    var y = yearFromIndex(i);
+    audYearEl.textContent = String(y);
+    setEdu(audEdu, COPY_AUDIO[y] || "");
+    if (audSlider) audSlider.setAttribute("aria-valuetext", String(y));
+    tryLoadAudio(audioPlayer, audioPathVoice(y), FALLBACK_AUDIO);
+  }
+
+  if (imgSlider) {
+    imgSlider.addEventListener("input", function () {
+      syncImage(parseInt(imgSlider.value, 10));
+    });
+    syncImage(0);
+  }
+
+  if (audSlider) {
+    audSlider.addEventListener("input", function () {
+      syncAudioTrack(parseInt(audSlider.value, 10));
+    });
+    syncAudioTrack(0);
+  }
+})();
+  </script>
+</body>
+</html>

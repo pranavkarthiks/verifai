@@ -265,8 +265,39 @@
       background: rgba(46, 242, 255, 0.1);
     }
 
-    .nav-start-demo {
+    .nav-trailing {
       margin-left: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    a.btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      margin: 8px 0;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 999px;
+      border: 1px solid #ff4b4b;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: #ff4b4b;
+      color: #000;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.05s ease,
+        box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    a.btn-primary:hover {
+      background: #ff6666;
+      border-color: #ff6666;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
     }
 
     button {
@@ -2076,9 +2107,12 @@
           <a href="#stage7" role="menuitem">Stage 7</a>
         </div>
       </details>
-      <button class="btn-primary nav-start-demo" type="button" onclick="document.getElementById('stage1').scrollIntoView({ behavior: 'smooth' });">
-        Start Demo
-      </button>
+      <div class="nav-trailing">
+        <button class="btn-primary" type="button" onclick="document.getElementById('stage1').scrollIntoView({ behavior: 'smooth' });">
+          Start Demo
+        </button>
+        <a class="btn-primary" href="ai-evolution.html">AI Over the Years</a>
+      </div>
     </div>
   </nav>
   <div class="read-progress-wrap" aria-hidden="true">
